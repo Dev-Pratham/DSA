@@ -128,6 +128,33 @@ public class ArrayBasics {
 
      }
 
+     public static int maxSubarr(int arr[]){
+
+
+        int largest=Integer.MIN_VALUE;
+          for(int i=0;i<arr.length;i++){
+
+              for(int j=i;j<arr.length;j++){
+
+                  int sum=0;
+                  for(int k=i;k<=j;k++){
+                   
+                     sum+=arr[k];
+
+                  }
+
+                  if(largest<=sum){
+                    largest=sum;
+                  }
+              }
+          }
+
+
+
+          return largest;
+
+     }
+
     public static void main(String args[]){
 
 
@@ -173,10 +200,13 @@ public class ArrayBasics {
 
 
 //subarray
+// int arr[]={2,4,6,8,10};
+// subarray(arr);
+
+
+//max subarray
 int arr[]={2,4,6,8,10};
-subarray(arr);
-
-
+System.out.print(maxSubarr(arr));
 
 
     }
