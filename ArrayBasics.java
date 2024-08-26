@@ -528,7 +528,7 @@ int maxsum=Integer.MIN_VALUE;
 // System.out.println(binarySearchModified(pivotedarr, key));
 
 //duplicate triplets
-int arr[]={ 0, 1, 3, -1, -4};
+int arr[]={-1,0,1,2,-1};
 duplicateTriplets(arr);
 
 System.out.println(arr[0]==arr[-1]);
