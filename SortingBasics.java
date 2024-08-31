@@ -183,8 +183,110 @@ return -1;
 
     }
 
-    
+    public static void largeNSmall(int matrix[][]){
 
+
+        int largest=Integer.MIN_VALUE;
+        int smallest=Integer.MAX_VALUE;
+
+        int row=matrix.length;
+        int col=matrix[0].length;
+
+        for(int i=0;i<row;i++){
+             for(int j=0;j<col;j++){
+
+                if(largest<matrix[i][j]){
+                    largest=matrix[i][j];
+                }
+
+                if(smallest>matrix[i][j]){
+                    smallest=matrix[i][j];
+                }
+             }
+        }
+
+        System.out.println("largest is : "+largest);
+        System.out.println("Smallest is : "+smallest);
+
+        return;
+    }
+
+    public static void spiral(int mat[][]){
+
+        int startRow=0;
+        int startcol=0;
+        int endRow=mat.length-1;
+        int endCol=mat[0].length-1;
+
+
+
+        while(startRow<=endRow && startcol<=endCol){
+//top
+            for(int i=startcol;i<=endCol;i++){
+                System.out.print(mat[startRow][i]+" ");
+            }
+//right
+            for(int j=startRow+1;j<=endRow;j++){
+                System.out.print(mat[j][endCol]+" ");
+            }
+//bottom
+            for(int k=endCol-1;k>=startcol;k--){
+                if(startRow==endRow){
+                    break;
+
+                }
+                System.out.print(mat[endRow][k]+" ");
+            }
+//left
+            for(int l=endRow-1;l>=startRow+1;l--){
+                if(startcol==endCol){
+                    break;
+                }
+                System.out.print(mat[l][startcol]+" ");
+            }
+
+            startcol++;
+            startRow++;
+            endRow--;
+            endCol--;
+        }
+
+    }
+
+    public static int diagonalSum(int mat[][]){
+
+
+        int row=mat.length;
+        int col=mat[0].length;
+        int primarysum=0;
+        int secondarysum=0;
+        int totalsum;
+        int mid=row/2;
+   
+        for(int i=0;i<row;i++){
+
+            primarysum=primarysum+mat[i][i];
+            secondarysum=secondarysum+mat[i][col-1];
+            col--;
+        }
+        //totalsum needs to be calculated anyways
+        totalsum=primarysum+secondarysum;
+
+        //incase of odd number of rows and column
+        if(row%2!=0){
+            totalsum=totalsum-mat[mid][mid];
+        }
+       
+
+    
+    
+    
+        
+
+     System.out.println("Primary sum : "+primarysum);
+     System.out.println("Secondary sum : "+secondarysum);
+     return totalsum;
+    }
 
 
     public static void main(String args[]){
@@ -193,11 +295,27 @@ return -1;
 //    Arrays.sort(arr,Collections.reverseOrder());
 
 //2d array with 3 rows and 3 columns
-     int matrix[][]=new int[3][3];
+    //  int matrix[][]=new int[3][3];
 
-      input2dMatrix(matrix);
-      search(matrix, 3);
-      output2dMatrix(matrix);
+    //   input2dMatrix(matrix);
+    // //   search(matrix, 3);
+    // //   output2dMatrix(matrix);
+    // largeNSmall(matrix);
+
+    //spiral matrix
+    // int mat[][]={{1,2,3,4},
+    //              {5,6,7,8},
+    //               {9,10,11,12},
+    //              {13,14,15,16}};
+    // spiral(mat);
+
+    int mat[][]={
+        {1,2,3},
+        {4,1,6},
+        {8,8,9}
+    };
+
+    System.out.println(diagonalSum(mat));
     
 
 
