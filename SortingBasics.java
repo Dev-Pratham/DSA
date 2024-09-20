@@ -288,6 +288,32 @@ return -1;
      return totalsum;
     }
 
+    public static void searchSortedMatrix(int arr[][],int key){
+
+        //staircase search
+
+        //defining the top right element for comparasion
+        int row=0, col=arr[0].length-1;
+        //also known as staircase search  
+
+        while(row<arr.length && col>=0){
+
+            if(arr[row][col]==key){
+                System.out.print("key found at index:"+row+""+col);
+                return;
+            }
+
+            else if(key<arr[row][col]){
+                col--;
+            }
+            else{
+                row++;
+            }
+
+        }
+        
+    }
+
 
     public static void main(String args[]){
 
@@ -309,13 +335,27 @@ return -1;
     //              {13,14,15,16}};
     // spiral(mat);
 
-    int mat[][]={
-        {1,2,3},
-        {4,1,6},
-        {8,8,9}
-    };
 
-    System.out.println(diagonalSum(mat));
+    //program to print diagonal sum
+    // int mat[][]={
+    //     {1,2,3},
+    //     {4,1,6},
+    //     {8,8,9}
+    // };
+
+    // System.out.println(diagonalSum(mat));
+
+    //to search in row and column wise sorted matrix 
+    //staircase search...
+
+    int mat[][]={{1,2,3,4},
+                {5,6,7,8},
+                {9,10,11,12},
+                {13,14,15,16}};
+
+    int key=14;
+
+    searchSortedMatrix(mat, key);
     
 
 
