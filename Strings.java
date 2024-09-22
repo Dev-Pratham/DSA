@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Strings {
     
 
@@ -243,7 +245,62 @@ public class Strings {
            System.out.println(st);
     }
     
+public static int countLowerCaseVowels(String str){
 
+    int count=0;
+
+
+    for(int i=0;i<str.length();i++){
+
+        char ch=str.charAt(i);
+
+        //you can simply write if conditions with several or between operends 
+        //to make it one liner 
+
+        switch (ch) {
+                case 'a':count++; 
+                break;
+
+                case 'e':count++;
+                break;
+                
+                case 'i':count++;
+                break;
+
+                case 'o':count++;
+                break;
+
+                case 'u':count++;
+                break;
+           
+        }
+    }
+
+return count;
+
+}
+
+public static boolean isAnagram(String str1,String str2){
+
+    if(str1.length()==str2.length()){
+
+        str1=str1.toLowerCase();
+        str2=str2.toLowerCase();
+
+        char ch1[]=str1.toCharArray();
+        char ch2[]=str2.toCharArray();
+
+        Arrays.sort(ch1);
+        Arrays.sort(ch2);
+
+        if(ch1.equals(ch2)){
+            return true;
+        }    
+        
+    }
+
+    return false; 
+}
 
     public static void main(String args[]){
 
@@ -270,9 +327,19 @@ public class Strings {
     // System.out.println(toUpperCase(word));
 
     //string compression
-    String str="aaabbcccdddd";
-stringCompression(str);
+    // String str="aaabbcccdddd";
+    // stringCompression(str);
 
+    //count lowercasevowelsentered by user 
+    // String str="aeiou";
+    // System.out.println(countLowerCaseVowels(str));
+
+    //is anagram race : acer
+    String a="racAEer";
+    String b="acaADer";
+    System.out.println(isAnagram(a, b));
+
+//refer to intern.java
   
     }
 }
