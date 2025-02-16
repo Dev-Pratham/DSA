@@ -325,16 +325,18 @@ public class Recursuin {
 
     }
 
-    public static void towerOfHanoi(int n, char src, char des, char helper) {
+    public static int towerOfHanoi(int n, char src, char des, char helper) {
 
         if (n == 1) {
             System.out.println("Move" + n + "from " + src + " To " + des);
-            return;
+            return 1;
         }
 
-        towerOfHanoi(n - 1, src, helper, des);
+        int step1 = towerOfHanoi(n - 1, src, helper, des);
         System.out.println("Move" + n + "from " + src + " To " + des);
-        towerOfHanoi(n - 1, helper, des, src);
+        int step2 = towerOfHanoi(n - 1, helper, des, src);
+
+        return step1 + 1 + step2;
 
     }
 
@@ -380,7 +382,8 @@ public class Recursuin {
         // String name = "abcab";
         // System.out.println(countSubStr(name, 0, 5));
 
-        towerOfHanoi(3, 'A', 'B', 'C');
+        towerOfHanoi(4, 'A', 'B', 'C');
+        System.out.println(towerOfHanoi(4, 'A', 'B', 'C'));
 
     }
 }
