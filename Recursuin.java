@@ -152,6 +152,192 @@ public class Recursuin {
         }
     }
 
+    public static int friendsPair(int n) {
+
+        if (n == 1 || n == 2) {
+            return n;
+        }
+
+        int totalways = friendsPair(n - 1) + (n - 1) * friendsPair(n - 2);
+        return totalways;
+
+    }
+
+    public static String binaryString(String str, int index) {
+
+        if (index == str.length()) {
+            return str;
+        }
+
+        char one = '1';
+
+        if (str.charAt(index) == one && str.charAt(index + 1) == one) {
+            return "contains consecutive one";
+        }
+
+        return binaryString(str, index + 1);
+    }
+
+    public static void printBs(int n, String srt, int lastPlace) {
+
+        if (n == 0) {
+            System.out.println(srt);
+            return;
+        }
+
+        String newStr = srt;
+        if (lastPlace == 0) {
+            printBs(n - 1, newStr + 0, 0);
+            printBs(n - 1, newStr + 1, 1);
+
+        } else {
+            printBs(n - 1, newStr + 0, 0);
+        }
+    }
+
+    public static void q1(int arr[], int key, int index) {
+
+        if (index == arr.length) {
+            System.out.print("\n" + "Completed traversing the array");
+            return;
+        }
+
+        if (arr[index] == key) {
+            System.out.print(index + " ");
+        }
+
+        q1(arr, key, index + 1);
+
+    }
+
+    public static void q2(int n) {
+
+        if (n == 0) {
+            return;
+        }
+        q2(n / 10);
+
+        String letter = "Invalid argument passed";
+        switch (n % 10) {
+
+            case 0:
+                letter = "zero";
+
+                break;
+            case 1:
+                letter = "one";
+
+                break;
+            case 2:
+                letter = "two";
+
+                break;
+            case 3:
+                letter = "three";
+
+                break;
+            case 4:
+                letter = "four";
+
+                break;
+            case 5:
+                letter = "five";
+
+                break;
+            case 6:
+                letter = "six";
+
+                break;
+            case 7:
+                letter = "seven";
+
+                break;
+            case 8:
+                letter = "eight";
+
+                break;
+
+            case 9:
+                letter = "nine";
+                break;
+        }
+
+        System.out.print(letter + " ");
+
+    }
+
+    public static int stringLength(String str) {
+
+        int length = 0;
+
+        while (true) {
+
+            try {
+                char ch = str.charAt(length);
+                length++;
+            } catch (Exception e) {
+                break;
+            }
+        }
+        return length;
+    }
+
+    public static int stringLength2(String str, int index) {
+
+        if (index == stringLength(str)) {
+            return 0;
+        }
+
+        return 1 + stringLength2(str, index + 1);
+
+    }
+
+    public static int q3(String str, int index, int length) {
+
+        if (index == stringLength(str)) {
+
+            return length;
+
+        }
+
+        char ch = str.charAt(index);
+
+        return 0;
+
+    }
+
+    public static int countSubStr(String str, int start, int end) {
+
+        if (start > end) {
+            return 0;
+        }
+
+        int count = 0;
+        for (int i = start; i < end; i++) {
+
+            if (str.charAt(start) == str.charAt(i)) {
+                count++;
+            }
+        }
+
+        int sum = count + countSubStr(str, start + 1, end);
+        return sum;
+
+    }
+
+    public static void towerOfHanoi(int n, char src, char des, char helper) {
+
+        if (n == 1) {
+            System.out.println("Move" + n + "from " + src + " To " + des);
+            return;
+        }
+
+        towerOfHanoi(n - 1, src, helper, des);
+        System.out.println("Move" + n + "from " + src + " To " + des);
+        towerOfHanoi(n - 1, helper, des, src);
+
+    }
+
     public static void main(String args[]) {
         // Scanner sc = new Scanner(System.in);
         // System.out.print("Enter number: ");
@@ -178,10 +364,23 @@ public class Recursuin {
         // int floorLength = 6;
         // System.out.println(tilingProblem(floorLength));
 
-        String dulpcation = "pratham";
-        boolean map[] = new boolean[26];
-        StringBuilder sb = new StringBuilder("");
-        removeDulplicates(dulpcation, sb, 0, map);
+        // String dulpcation = "pratham";
+        // boolean map[] = new boolean[26];
+        // StringBuilder sb = new StringBuilder("");
+        // removeDulplicates(dulpcation, sb, 0, map);
+
+        // System.out.println(friendsPair(4));
+
+        // printBs(3, "", 0);
+
+        // int arr[] = { 2, 3, 4, 2, 3, 4, 2, 4, 5, 6, 6, 6, 7, 8, 9, 7 };
+        // q1(arr, 6, 0);
+        // q2(1250);
+
+        // String name = "abcab";
+        // System.out.println(countSubStr(name, 0, 5));
+
+        towerOfHanoi(3, 'A', 'B', 'C');
 
     }
 }
