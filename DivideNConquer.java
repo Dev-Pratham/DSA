@@ -135,6 +135,83 @@ public class DivideNConquer {
 
     }
 
+    public static boolean isSmallerAlphabet(String st1, String st2) {
+
+        boolean res = true;
+
+        for (int i = 0; i < st1.length(); i++) {
+
+            if (st1.charAt(i) == st2.charAt(i)) {
+                continue;
+            }
+            if (st1.charAt(i) > st2.charAt(i)) {
+                res = false;
+
+            } else {
+                res = true;
+
+            }
+
+            return res;
+        }
+
+        return res;
+
+    }
+
+    public static void mergesortString(String str[], int si, int ei) {
+
+        if (si >= ei) {
+            return;
+        }
+
+        int mid = si + (ei - si) / 2;
+
+        mergesortString(str, si, mid);
+        mergesortString(str, mid + 1, ei);
+        mergeString(str, si, mid, ei);
+
+    }
+
+    public static void mergeString(String str[], int si, int mid, int ei) {
+
+        String temp[] = new String[ei - si + 1];
+        int i = si;
+        int j = mid + 1;
+        int k = 0;
+
+        while (i <= mid && j <= ei) {
+
+            if (isSmallerAlphabet(str[i], str[j])) {
+                temp[k] = str[i];
+                i++;
+            } else {
+                temp[k] = str[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i <= mid) {
+            temp[k] = str[i];
+            k++;
+            i++;
+        }
+
+        while (j <= ei) {
+            temp[k] = str[j];
+            k++;
+            j++;
+
+        }
+
+        // copy back to the original array
+        for (k = 0, i = si; k < temp.length; k++, i++) {
+            str[i] = temp[k];
+        }
+
+    }
+
     public static void main(String args[]) {
 
         // int arr[] = { 6, 3, 9, 5, 2, 8 };
@@ -145,8 +222,16 @@ public class DivideNConquer {
         // }
 
         // rotated array
-        int arr[] = { 4, 5, 6, 7, 0, 1, 2 };
-        int res = searchRotated(arr, 0, 0, arr.length);
-        System.out.println(res);
+        // int arr[] = { 4, 5, 6, 7, 0, 1, 2 };
+        // int res = searchRotated(arr, 0, 0, arr.length);
+        // System.out.println(res);
+
+        String arr[] = { "sun", "earth", "mars", "mercury" };
+        mergesortString(arr, 0, arr.length - 1);
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+
     }
 }
