@@ -1,53 +1,98 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class test {
-    // Define the dominos as arrays of strings
-    static String[] top = { "1", "10" };
-    static String[] bottom = { "111", "0" };
-    static int maxDepth = 10; // Limit recursion depth to avoid infinite loops
-    static int solutionCount = 0; // Track the number of solutions found
-    static int requiredSolutions = 3; // Number of solutions to find
+    private JTextArea codeArea;
+    private JTextArea stackArea;
+    private JButton nextButton, prevButton;
+    private int currentStep = 0;
+    private List<String> executionSteps;
 
-    public static void main(String[] args) {
-        List<Integer> solution = new ArrayList<>();
-        System.out.println("Solving PCP for dominos...");
-        solvePCP("", "", solution, 0);
-        if (solutionCount < requiredSolutions) {
-            System.out.println("Less than 3 solutions were found.");
+    public test() {
+        executionSteps = new ArrayList<>();
+        executionSteps.add("int a = 5;");
+        executionSteps.add("int b = 10;");
+        executionSteps.add("int sum = add(a, b);");
+        executionSteps.add("print(sum);");
+
+        JFrame frame = new JFrame("Java Code Visualizer");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        codeArea = new JTextArea(10, 40);
+        codeArea.setEditable(false);
+        updateCodeArea();
+
+        stackArea = new JTextArea(5, 40);
+        stackArea.setEditable(false);
+
+        nextButton = new JButton("Next");
+        prevButton = new JButton("Previous");
+
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (currentStep < executionSteps.size() - 1) {
+                    currentStep++;
+                    updateCodeArea();
+                }
+            }
+        });
+
+        prevButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (currentStep > 0) {
+                    currentStep--;
+                    updateCodeArea();
+                }
+            }
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(prevButton);
+        buttonPanel.add(nextButton);
+
+        panel.add(new JScrollPane(codeArea), BorderLayout.CENTER);
+        panel.add(new JScrollPane(stackArea), BorderLayout.EAST);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+
+    private void updateCodeArea() {
+        StringBuilder codeDisplay = new StringBuilder();
+        for (int i = 0; i < executionSteps.size(); i++) {
+            if (i == currentStep) {
+                codeDisplay.append("--> "); // Highlight current step
+            } else {
+                codeDisplay.append("    ");
+            }
+            codeDisplay.append(executionSteps.get(i)).append("\n");
+        }
+        codeArea.setText(codeDisplay.toString());
+        updateStack();
+    }
+
+    private void updateStack() {
+        switch (currentStep) {
+            case 0 -> stackArea.setText("Stack: Empty");
+            case 1 -> stackArea.setText("Stack:\na = 5");
+            case 2 -> stackArea.setText("Stack:\na = 5\nb = 10");
+            case 3 -> stackArea.setText("Stack:\na = 5\nb = 10\nsum = add(a, b)");
+            case 4 -> stackArea.setText("Stack:\na = 5\nb = 10\nsum = 15");
         }
     }
 
-    // Recursive function to solve PCP
-    public static void solvePCP(String topString, String bottomString, List<Integer> solution, int depth) {
-        // Stop recursion if depth exceeds maxDepth or if enough solutions are found
-        if (depth > maxDepth || solutionCount >= requiredSolutions) {
-            return;
-        }
-
-        // Check if the top and bottom strings match
-        if (!topString.isEmpty() && topString.equals(bottomString)) {
-            solutionCount++;
-            System.out.println("Solution " + solutionCount + ": " + solution);
-            if (solutionCount >= requiredSolutions) {
-                return;
-            }
-        }
-
-        // Try each domino
-        for (int i = 0; i < top.length; i++) {
-            // Append current domino to the solution
-            solution.add(i + 1);
-
-            // Concatenate current domino to top and bottom strings
-            String newTopString = topString + top[i];
-            String newBottomString = bottomString + bottom[i];
-
-            // Recursive call
-            solvePCP(newTopString, newBottomString, solution, depth + 1);
-
-            // Backtrack: remove the last domino from the solution
-            solution.remove(solution.size() - 1);
-        }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(test::new);
     }
 }
