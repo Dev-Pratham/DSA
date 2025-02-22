@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class DivideNConquer {
 
     public static void mergeSort(int arr[], int si, int ei) {
@@ -137,25 +139,26 @@ public class DivideNConquer {
 
     public static boolean isSmallerAlphabet(String st1, String st2) {
 
-        boolean res = true;
+        int i = 0;
+        int j = 0;
 
-        for (int i = 0; i < st1.length(); i++) {
+        while (i < st1.length() && j < st2.length()) {
 
-            if (st1.charAt(i) == st2.charAt(i)) {
-                continue;
-            }
-            if (st1.charAt(i) > st2.charAt(i)) {
-                res = false;
-
-            } else {
-                res = true;
-
+            if (st1.charAt(i) < st2.charAt(j)) {
+                return true;
+            } else if (st1.charAt(i) > st2.charAt(j)) {
+                return false;
             }
 
-            return res;
+            i++;
+            j++;
         }
 
-        return res;
+        if (i == st1.length()) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -212,6 +215,217 @@ public class DivideNConquer {
 
     }
 
+    public static int absolute(int n) {
+
+        if (n < 0) {
+            return n * -1;
+        }
+        return n;
+    }
+
+    public static int returnMajority(int arr[]) {
+
+        // has space complexity issue;
+        int largest = Integer.MIN_VALUE;
+        int smallest = Integer.MAX_VALUE;
+
+        for (int i = 0; i < arr.length; i++) {
+
+            if (largest < arr[i]) {
+                largest = arr[i];
+            }
+
+            if (smallest > arr[i]) {
+                smallest = arr[i];
+            }
+
+        }
+
+        int freq[] = new int[largest + 1];
+        int negFreq[] = new int[absolute(smallest) + 1];
+        int bound = arr.length / 2;
+
+        for (int i = 0; i < arr.length; i++) {
+
+            if (arr[i] < 0) {
+                negFreq[arr[i] * -1]++;
+            } else {
+                freq[arr[i]]++;
+            }
+        }
+
+        int count = -1;
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] > bound) {
+                count = i;
+                break;
+            }
+        }
+
+        for (int i = 0; i < negFreq.length; i++) {
+            if (negFreq[i] > bound) {
+                count = i * -1;
+                break;
+            }
+        }
+        return count;
+    }
+
+    public static int returnMajority2(int arr[]) {
+
+        // has more time complexity
+        int bound = arr.length / 2;
+
+        for (int i = 0; i < arr.length; i++) {
+
+            int count = 0;
+            for (int j = 0; j < arr.length; j++) {
+
+                if (arr[i] == arr[j]) {
+                    count++;
+                }
+            }
+
+            if (count > bound) {
+                return arr[i];
+            }
+        }
+
+        return -1;
+
+    }
+
+    public static int returnMajority3(int arr[]) {
+
+        Arrays.sort(arr);
+
+        int bound = arr.length / 2;
+        int possiblemajority = arr[bound];
+
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+
+            if (arr[i] == possiblemajority) {
+                count++;
+            }
+        }
+
+        if (count > bound) {
+            return possiblemajority;
+        } else {
+            return -1;
+        }
+    }
+
+    public static int countInRange(int arr[], int majority, int si, int ei) {
+
+        int count = 0;
+        for (int i = si; i <= ei; i++) {
+            if (arr[i] == majority) {
+                count++;
+            }
+        }
+        return count;
+
+    }
+
+    public static int returnMajority4(int arr[], int si, int ei) {
+
+        if (si == ei) {
+            return arr[si];
+        }
+
+        int mid = (si + ei) / 2;
+
+        int leftMajority = returnMajority4(arr, si, mid);
+        int rigthMajority = returnMajority4(arr, mid + 1, ei);
+
+        if (leftMajority == rigthMajority) {
+            return leftMajority;
+        }
+
+        int countLeftMajority = countInRange(arr, leftMajority, si, mid);
+        int countRightMajority = countInRange(arr, rigthMajority, mid + 1, ei);
+
+        return countLeftMajority > countRightMajority ? leftMajority : rigthMajority;
+    }
+
+    public static int countInversion(int arr[]) {
+
+        int count = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] > arr[j]) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public static int modifiedMerge(int arr[], int si, int mid, int ei) {
+
+        int inversion = 0;
+
+        int temp[] = new int[ei - si + 1];
+        int i = si;
+        int j = mid + 1;
+        int k = 0;
+
+        while (i <= mid && j <= ei) {
+
+            if (arr[i] <= arr[j]) {
+                temp[k] = arr[i];
+                i++;
+            } else {
+                temp[k] = arr[j];
+                inversion += (mid - i + 1);
+                j++;
+            }
+            k++;
+
+        }
+
+        while (i <= mid) {
+            temp[k] = arr[i];
+            i++;
+            k++;
+        }
+        while (j <= ei) {
+            temp[k] = arr[j];
+            k++;
+            j++;
+        }
+        // copy function
+
+        for (k = 0, i = si; k < temp.length; k++, i++) {
+            arr[i] = temp[k];
+
+        }
+
+        return inversion;
+
+    }
+
+    public static int countInversion2(int arr[], int si, int ei) {
+
+        int invCount = 0;
+
+        if (si < ei) {
+
+            int mid = (si + ei) / 2;
+            invCount = countInversion2(arr, si, mid);
+            invCount += countInversion2(arr, mid + 1, ei);
+            invCount += modifiedMerge(arr, si, mid, ei);
+
+        }
+
+        return invCount;
+
+    }
+
     public static void main(String args[]) {
 
         // int arr[] = { 6, 3, 9, 5, 2, 8 };
@@ -226,12 +440,21 @@ public class DivideNConquer {
         // int res = searchRotated(arr, 0, 0, arr.length);
         // System.out.println(res);
 
-        String arr[] = { "sun", "earth", "mars", "mercury" };
-        mergesortString(arr, 0, arr.length - 1);
+        // String arr[] = { "sun", "earth", "mars", "mercury" };
+        // mergesortString(arr, 0, arr.length - 1);
 
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
+        // for (int i = 0; i < arr.length; i++) {
+        // System.out.print(arr[i] + " ");
+        // }
+
+        // int arr[] = { 3, 2, 3 };
+        // int res = returnMajority4(arr, 0, arr.length - 1);
+        // System.out.println(res);
+
+        // count inversion
+        int arr[] = { 1, 3, 5, 10, 2, 6, 8, 9 };
+        int res = countInversion2(arr, 0, arr.length - 1);
+        System.out.println(res);
 
     }
 }
