@@ -1,35 +1,28 @@
 public class test {
 
-    // Starting point
-    public static void subSets(String str) {
-        helper(str, 0, 0);
+    public static void trackArray(int arr[], int i) {
+
+        if (i == arr.length) {
+            return;
+        }
+
+        arr[i] = i + 1;
+        trackArray(arr, i + 1);
+        // backtracking step
+        arr[i] = arr[i] - 2;
     }
 
-    // This replaces the 1st and 2nd loop (i and j)
-    public static void helper(String str, int start, int end) {
-        if (start == str.length())
-            return; // base case
+    public static void print(int arr[]) {
 
-        if (end == str.length()) {
-            // when end reaches string length, move start to next index
-            helper(str, start + 1, start + 1);
-        } else {
-            // print characters from start to end (like your 3rd loop)
-            printChars(str, start, end);
-            System.out.println();
-            helper(str, start, end + 1); // move end ahead
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
         }
     }
 
-    // This replaces the innermost loop
-    public static void printChars(String str, int si, int ei) {
-        if (si > ei)
-            return;
-        System.out.print(str.charAt(si) + " ");
-        printChars(str, si + 1, ei);
-    }
+    public static void main(String args[]) {
 
-    public static void main(String[] args) {
-        subSets("abcd");
+        int arr[] = new int[5];
+        trackArray(arr, 0);
+        print(arr);
     }
 }
