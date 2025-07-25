@@ -1,28 +1,24 @@
 public class test {
 
-    public static void trackArray(int arr[], int i) {
+    public static void permutation(String str, String ans) {
 
-        if (i == arr.length) {
+        if (str.length() == 0) {
+            System.out.println(ans);
             return;
         }
 
-        arr[i] = i + 1;
-        trackArray(arr, i + 1);
-        // backtracking step
-        arr[i] = arr[i] - 2;
-    }
-
-    public static void print(int arr[]) {
-
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int i = 0; i < str.length(); i++) {
+            char current = str.charAt(i);
+            String newStr = str.substring(0, i) + str.substring(i + 1);
+            permutation(newStr, ans + current);
         }
+
     }
 
     public static void main(String args[]) {
 
-        int arr[] = new int[5];
-        trackArray(arr, 0);
-        print(arr);
+        String str = "abc";
+        // findSubset(str, "", 0);
+        permutation(str, "");
     }
 }
