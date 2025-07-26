@@ -50,6 +50,30 @@ public class BackTracking {
 
     }
 
+    public static boolean isSafe(char board[][], int row, int col) {
+
+        // vertical condition
+        for (int i = row - 1; i >= 0; i--) {
+            if (board[i][col] == 'Q') {
+                return false;
+            }
+        }
+        // left diagonal condition
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+        }
+        // right diagonal
+        for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static void printBorard(char board[][]) {
 
         System.out.println("-----Chess Board-----");
@@ -69,9 +93,12 @@ public class BackTracking {
         }
 
         for (int j = 0; j < board.length; j++) {
-            board[row][j] = 'Q';
-            nQueens(board, row + 1);
-            board[row][j] = 'x';
+            if (isSafe(board, row, j)) {
+
+                board[row][j] = 'Q';
+                nQueens(board, row + 1);
+                board[row][j] = 'x';
+            }
         }
 
     }
@@ -82,8 +109,15 @@ public class BackTracking {
         // // findSubset(str, "", 0);
         // permutation(str, "");
 
-        int n = 2;
+        // initialization
+        int n = 4;
         char board[][] = new char[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = '.';
+            }
+        }
         nQueens(board, 0);
 
     }
