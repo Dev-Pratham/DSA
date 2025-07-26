@@ -87,16 +87,22 @@ public class BackTracking {
 
     public static void nQueens(char board[][], int row) {
 
+        // approach used plac n queen in n row first
         if (row == board.length) {
             printBorard(board);
             return;
         }
 
         for (int j = 0; j < board.length; j++) {
+            // Checks whether to place queen or not
+
             if (isSafe(board, row, j)) {
 
+                // This 3 step is for all the permutation of placing queen in row
                 board[row][j] = 'Q';
                 nQueens(board, row + 1);
+                // when we backtrack then first we remove queen then
+                // place it to another position
                 board[row][j] = 'x';
             }
         }
