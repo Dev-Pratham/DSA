@@ -85,6 +85,8 @@ public class BackTracking {
         }
     }
 
+    static int count = 0;
+
     public static void nQueens(char board[][], int row) {
 
         // approach used plac n queen in n row first
@@ -109,6 +111,58 @@ public class BackTracking {
 
     }
 
+    // THis variation counts the number of solution
+    public static void nQueen2(char board[][], int row) {
+
+        // approach used plac n queen in n row first
+        if (row == board.length) {
+            count++;
+            return;
+        }
+
+        for (int j = 0; j < board.length; j++) {
+            // Checks whether to place queen or not
+
+            if (isSafe(board, row, j)) {
+
+                // This 3 step is for all the permutation of placing queen in row
+                board[row][j] = 'Q';
+                nQueens(board, row + 1);
+                // when we backtrack then first we remove queen then
+                // place it to another position
+                board[row][j] = 'x';
+            }
+        }
+
+    }
+
+    // This variation check whether problem can be solved if yes then
+    // print only one solution
+    public static boolean nQueen3(char board[][], int row) {
+
+        // approach used plac n queen in n row first
+        if (row == board.length) {
+
+            return true;
+        }
+
+        for (int j = 0; j < board.length; j++) {
+            // Checks whether to place queen or not
+
+            if (isSafe(board, row, j)) {
+
+                board[row][j] = 'Q';
+                if (nQueen3(board, row + 1)) {
+                    return true;
+                }
+
+                board[row][j] = 'x';
+            }
+        }
+
+        return false;
+    }
+
     public static void main(String args[]) {
 
         // String str = "abc";
@@ -116,15 +170,27 @@ public class BackTracking {
         // permutation(str, "");
 
         // initialization
-        int n = 4;
-        char board[][] = new char[n][n];
+        // int n = 4;
+        // char board[][] = new char[n][n];
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                board[i][j] = '.';
-            }
-        }
-        nQueens(board, 0);
+        // for (int i = 0; i < n; i++) {
+        // for (int j = 0; j < n; j++) {
+        // board[i][j] = '.';
+        // }
+        // }
+        // // Print all possible solutions
+        // nQueens(board, 0);
+
+        // // Count all possible solutions
+        // nQueen2(board, 0);
+        // System.out.println(count);
+
+        // if (nQueen3(board, 0)) {
+        // System.out.println("Solution exists");
+        // printBorard(board);
+        // } else {
+        // System.out.println("Solution doesnot exists");
+        // }
 
     }
 }
