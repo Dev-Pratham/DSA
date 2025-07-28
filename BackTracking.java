@@ -169,6 +169,8 @@ public class BackTracking {
         }
 
         // boundary condition
+        // if we increment the i and j we might move to n or beyond
+        // however the valid index is from 0 to n-1
         else if (i == n || j == m) {
             return 0;
         }
@@ -177,6 +179,21 @@ public class BackTracking {
         int w2 = gridWays(i + 1, j, n, m);
 
         return w1 + w2;
+    }
+
+    public static int gridWays2(int i, int j, int n, int m) {
+        // default is considered that src is at origin
+        // permutation approch used
+        int totalCharac = (n - 1 - i) + (m - 1 - j);
+        return fact(totalCharac) / (fact(n - 1 - i) * fact(m - 1 - j));
+    }
+
+    public static int fact(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+
+        return n * fact(n - 1);
     }
 
     public static void main(String args[]) {
@@ -209,7 +226,11 @@ public class BackTracking {
         // }
 
         // gridways
-        int gridSol = gridWays(0, 0, 3, 3);
-        System.out.println(gridSol);
+        // int gridSol = gridWays(1, 1, 3, 3);
+        // System.out.println(gridSol);
+
+        // gridways linear time
+        System.out.println(gridWays2(1, 1, 3, 3));
+
     }
 }
