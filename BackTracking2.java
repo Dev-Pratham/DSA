@@ -51,14 +51,59 @@ public class BackTracking2 {
         printAllPaths(maze, 0, 0, sol);
     }
 
-    public static void main(String[] args) {
-        int[][] maze = {
-                { 1, 0, 0, 0 },
-                { 1, 1, 0, 1 },
-                { 0, 1, 0, 0 },
-                { 1, 1, 1, 1 }
-        };
+    public static String getString(char ch) {
 
-        solveMaze(maze);
+        char c = ch;
+
+        switch (c) {
+            case '2':
+                return "abc";
+            case '3':
+                return "def";
+            case '4':
+                return "ghi";
+            case '5':
+                return "jkl";
+            case '6':
+                return "mno";
+            case '7':
+                return "pqrs";
+            case '8':
+                return "tuv";
+            case '9':
+                return "wxyz";
+            default:
+                return "";
+        }
+    }
+
+    public static void generateCombinations(String digit, int index, String current) {
+
+        if (index == digit.length()) {
+            System.out.println(current);
+            return;
+        }
+
+        char currentInput = digit.charAt(index);
+        String mappedString = getString(currentInput);
+
+        for (int i = 0; i < mappedString.length(); i++) {
+            generateCombinations(digit, index + 1, current + mappedString.charAt(i));
+        }
+
+    }
+
+    public static void main(String[] args) {
+        // int[][] maze = {
+        // { 1, 0, 0, 0 },
+        // { 1, 1, 0, 1 },
+        // { 0, 1, 0, 0 },
+        // { 1, 1, 1, 1 }
+        // };
+
+        // solveMaze(maze);
+
+        String digit = "2";
+        generateCombinations(digit, 0, "");
     }
 }
