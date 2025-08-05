@@ -68,10 +68,13 @@ public class BackTracking3 {
         sol[0][0] = 0;
 
         // we already placed the knight at 0,0 thats why we used move=1 while passing it
-        if (!solveKnightUntil(sol, 1, 0, 0)) {
-            System.out.println("Solution does not exist");
-        } else {
+        if (solveKnightUntil(sol, 1, 0, 0)) {
+
             printSolution(sol);
+
+        } else {
+            System.out.println("Solution does not exist");
+
         }
 
     }
