@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ArrayListPart1 {
 
@@ -20,20 +21,45 @@ public class ArrayListPart1 {
 
      }
 
+     public static int min(int a, int b) {
+          return a < b ? a : b;
+     }
+
+     public static int water(ArrayList<Integer> height) {
+
+          int maxWaterArea = Integer.MIN_VALUE;
+
+          for (int i = 0; i < height.size(); i++) {
+               int leftBarHeight = height.get(i);
+               for (int j = i + 1; j < height.size(); j++) {
+                    int rightBarHeight = height.get(j);
+                    int waterLevel = min(leftBarHeight, rightBarHeight);
+                    int width = j - i;
+                    int totalArea = width * waterLevel;
+                    if (maxWaterArea < totalArea) {
+                         maxWaterArea = totalArea;
+                    }
+
+               }
+          }
+
+          return maxWaterArea;
+     }
+
      public static void main(String[] args) {
 
-          ArrayList<ArrayList<Integer>> mainlist = new ArrayList<>();
-          ArrayList<Integer> list1 = new ArrayList<>();
-          // list1.add(1);
-          // list1.add(2);
-          // list1.add(3);
+          // ArrayList<ArrayList<Integer>> mainlist = new ArrayList<>();
+          // ArrayList<Integer> list1 = new ArrayList<>();
+          // // list1.add(1);
+          // // list1.add(2);
+          // // list1.add(3);
 
-          ArrayList<Integer> list2 = new ArrayList<>();
-          // list2.add(1);
-          // list2.add(2);
-          // list2.add(3);
+          // ArrayList<Integer> list2 = new ArrayList<>();
+          // // list2.add(1);
+          // // list2.add(2);
+          // // list2.add(3);
 
-          ArrayList<Integer> list3 = new ArrayList<>();
+          // ArrayList<Integer> list3 = new ArrayList<>();
 
           // mainlist.add(0, list1);
           // mainlist.add(1, list2);
@@ -44,20 +70,24 @@ public class ArrayListPart1 {
           // list2:2 4 6 8 10
           // list3:3,6,9,12,15
 
-          int size = 5;
+          // int size = 5;
 
-          for (int i = 0; i < size; i++) {
-               list1.add(i + 1);
-               list2.add((i * 2) + 2);
-               list3.add((i * 3) + 3);
-          }
+          // for (int i = 0; i < size; i++) {
+          // list1.add(i + 1);
+          // list2.add((i * 2) + 2);
+          // list3.add((i * 3) + 3);
+          // }
 
-          mainlist.add(list1);
-          mainlist.add(list2);
-          mainlist.add(list3);
+          // mainlist.add(list1);
+          // mainlist.add(list2);
+          // mainlist.add(list3);
 
-          printList(mainlist);
-          System.out.println(mainlist);
+          // printList(mainlist);
+          // System.out.println(mainlist);
 
+          // container with most water problem
+          ArrayList<Integer> height = new ArrayList<>(Arrays.asList(1, 8, 6, 2, 5, 4, 8, 3, 7));
+          int resultMaxWater = water(height);
+          System.out.println(resultMaxWater);
      }
 }
