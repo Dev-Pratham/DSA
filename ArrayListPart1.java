@@ -46,6 +46,30 @@ public class ArrayListPart1 {
           return maxWaterArea;
      }
 
+     public static int mostWater(ArrayList<Integer> height) {
+
+          int leftPointer = 0;
+          int rightPointer = height.size() - 1;
+          int largestVolume = Integer.MIN_VALUE;
+          while (leftPointer < rightPointer) {
+               int width = rightPointer - leftPointer;
+               int containerHeight = min(height.get(rightPointer), height.get(leftPointer));
+               int water = width * containerHeight;
+
+               if (largestVolume < water) {
+                    largestVolume = water;
+               }
+
+               if (height.get(leftPointer) < height.get(rightPointer)) {
+                    leftPointer++;
+               } else {
+                    rightPointer--;
+               }
+          }
+
+          return largestVolume;
+     }
+
      public static void main(String[] args) {
 
           // ArrayList<ArrayList<Integer>> mainlist = new ArrayList<>();
@@ -87,7 +111,12 @@ public class ArrayListPart1 {
 
           // container with most water problem
           ArrayList<Integer> height = new ArrayList<>(Arrays.asList(1, 8, 6, 2, 5, 4, 8, 3, 7));
-          int resultMaxWater = water(height);
-          System.out.println(resultMaxWater);
+          int resultMaxWater1 = water(height);
+          int resultMaxWater2 = mostWater(height);
+          // tc o(n^2)
+          System.out.println(resultMaxWater1);
+          // tco(n)
+          System.out.println(resultMaxWater2);
+
      }
 }
