@@ -1,47 +1,41 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class test {
 
-    public static String getCurrentString(char number) {
-        switch (number) {
-            case '2':
-                return "abc";
-            case '3':
-                return "def";
-            case '4':
-                return "ghi";
-            case '5':
-                return "jkl";
-            case '6':
-                return "mno";
-            case '7':
-                return "pqrs";
-            case '8':
-                return "tuv";
-            case '9':
-                return "wxyz";
-            default:
-                return "";
-        }
+    public static int min(int a, int b) {
+
+        return a < b ? a : b;
     }
 
-    public static void generateCombinations(String digits, int index, String current) {
-        if (index == digits.length()) {
-            System.out.println(current);
-            return;
+    public static int mostWater(ArrayList<Integer> height) {
+
+        int leftPointer = 0;
+        int rightPointer = height.size() - 1;
+        int largestVolume = Integer.MIN_VALUE;
+        while (leftPointer < rightPointer) {
+            int width = rightPointer - leftPointer;
+            int containerHeight = min(height.get(rightPointer), height.get(leftPointer));
+            int water = width * containerHeight;
+
+            if (largestVolume < water) {
+                largestVolume = water;
+            }
+
+            if (height.get(leftPointer) < height.get(rightPointer)) {
+                leftPointer++;
+            } else {
+                rightPointer--;
+            }
         }
 
-        String mappedStr = getCurrentString(digits.charAt(index));
-
-        for (int i = 0; i < mappedStr.length(); i++) {
-            generateCombinations(digits, index + 1, current + mappedStr.charAt(i));
-        }
+        return largestVolume;
     }
 
     public static void main(String[] args) {
-        String digits = "23";
-        if (digits.isEmpty()) {
-            System.out.println("No combinations possible.");
-        } else {
-            generateCombinations(digits, 0, "");
-        }
+        ArrayList<Integer> height = new ArrayList<>(Arrays.asList(1, 8, 6, 2, 5, 4, 8, 3, 7));
+        int resultMaxWater2 = mostWater(height);
+        System.out.println(resultMaxWater2);
+
     }
 }
