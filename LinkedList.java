@@ -11,6 +11,7 @@ public class LinkedList {
         Node(int data) {
             this.data = data;
             // assuming that there is no next node in the begining
+            // this is assumption which is universally true.
             this.next = null;
         }
 
@@ -33,6 +34,32 @@ public class LinkedList {
         head = newNode;
     }
 
+    public void addLast(int data) {
+
+        Node newNode = new Node(data);
+        // This case checks whether the linklist is empty or what
+        if (head == null) {
+            head = tail = newNode;
+            return;
+        }
+        tail.next = newNode;
+        tail = newNode;
+    }
+
+    public static void printLinkedList(Node l) {
+        // we just need head to iterate through linkedlist and a temporary variable
+        if (head == null) {
+            System.out.println("LinkList is empty");
+        }
+
+        Node temp = l;
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+
+    }
+
     public static void main(String args[]) {
 
         // inside the same file these 3 lines are same but outside the file we have to
@@ -50,6 +77,16 @@ public class LinkedList {
         LinkedList L1 = new LinkedList();
         L1.addFirst(10);
         L1.addFirst(20);
+        L1.addFirst(30);
+        L1.addFirst(40);
+
+        // Node temp = head;
+        // while (temp != null) {
+        // System.out.println(temp.data + "");
+        // temp = temp.next;
+        // }
+
+        LinkedList.printLinkedList(head);
 
     }
 }
