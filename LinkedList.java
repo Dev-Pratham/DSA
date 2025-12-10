@@ -34,6 +34,28 @@ public class LinkedList {
         head = newNode;
     }
 
+    public void add(int index, int data) {
+
+        // if index is zero we simply perform addfirst
+
+        if (index == 0) {
+            addFirst(data);
+            return;
+        }
+
+        Node temp = head;
+        int i = 0;
+        while (i < index - 1) {
+            temp = temp.next;
+            i++;
+        }
+        Node tempNext = temp.next;
+        Node newNode = new Node(data);
+        temp.next = newNode;
+        newNode.next = tempNext;
+
+    }
+
     public void addLast(int data) {
 
         Node newNode = new Node(data);
@@ -75,10 +97,10 @@ public class LinkedList {
         // confusing so we created seperate add function for that
 
         LinkedList L1 = new LinkedList();
-        L1.addFirst(10);
-        L1.addFirst(20);
-        L1.addFirst(30);
+        L1.addFirst(50);
         L1.addFirst(40);
+        L1.addFirst(20);
+        L1.addFirst(10);
 
         // Node temp = head;
         // while (temp != null) {
@@ -86,6 +108,8 @@ public class LinkedList {
         // temp = temp.next;
         // }
 
+        // LinkedList.printLinkedList(head);
+        L1.add(2, 30);
         LinkedList.printLinkedList(head);
 
     }
