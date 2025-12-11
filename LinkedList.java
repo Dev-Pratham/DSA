@@ -89,6 +89,30 @@ public class LinkedList {
         return;
     }
 
+    public void delLast() {
+        // edge cases
+        if (size == 0) {
+            System.out.println("ll is empty");
+            return;
+        }
+        if (size == 1) {
+            delFirst();
+            return;
+        }
+
+        int i = 0;
+        Node temp = head;
+        while (i < size - 2) {
+            temp = temp.next;
+            i++;
+        }
+
+        temp.next = null;
+        tail = temp;
+        return;
+
+    }
+
     public static void printLinkedList(Node l) {
         // we just need head to iterate through linkedlist and a temporary variable
         if (head == null) {
@@ -131,8 +155,11 @@ public class LinkedList {
 
         // LinkedList.printLinkedList(head);
         L1.add(2, 30);
+        // LinkedList.printLinkedList(head);
+        // System.out.println(size);
+
+        L1.delLast();
         LinkedList.printLinkedList(head);
-        System.out.println(size);
 
     }
 }
