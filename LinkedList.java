@@ -130,6 +130,37 @@ public class LinkedList {
         return -1;
     }
 
+    public int RecursiveSearch(int key, Node head, int i) {
+
+        // base case
+        if (head == null) {
+            System.out.println("No key found");
+            return -1;
+        }
+
+        if (head.data == key) {
+            return (i + 1);
+        }
+
+        return RecursiveSearch(key, head.next, i + 1);
+
+    }
+
+    public void reverseList() {
+
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+
     public static void printLinkedList(Node l) {
         // we just need head to iterate through linkedlist and a temporary variable
         if (head == null) {
@@ -178,7 +209,11 @@ public class LinkedList {
         // L1.delLast();
         LinkedList.printLinkedList(head);
 
-        System.out.println(L1.Search(20, head));
+        System.out.println(L1.Search(30, head));
+        System.out.println(L1.RecursiveSearch(30, head, 0));
+
+        L1.reverseList();
+        LinkedList.printLinkedList(head);
 
     }
 }
