@@ -113,6 +113,23 @@ public class LinkedList {
 
     }
 
+    public int Search(int key, Node head) {
+
+        int i = 0;
+        Node temp = head;
+        // can iterate either using size or null using size for simplicity
+        while (i < size - 1) {
+            // search for key
+            if (temp.data == key) {
+                return (i + 1);
+            }
+            temp = temp.next;
+            i++;
+        }
+
+        return -1;
+    }
+
     public static void printLinkedList(Node l) {
         // we just need head to iterate through linkedlist and a temporary variable
         if (head == null) {
@@ -158,8 +175,10 @@ public class LinkedList {
         // LinkedList.printLinkedList(head);
         // System.out.println(size);
 
-        L1.delLast();
+        // L1.delLast();
         LinkedList.printLinkedList(head);
+
+        System.out.println(L1.Search(20, head));
 
     }
 }
