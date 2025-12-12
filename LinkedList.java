@@ -190,6 +190,31 @@ public class LinkedList {
         return;
     }
 
+    public boolean checkPalindrome() {
+
+        int i = 0;
+        Node first = head;
+        while (i < (size / 2)) {
+
+            int j = 0;
+            Node last = first;
+            while (j < size - 2 * i - 1) {
+                last = last.next;
+                j++;
+            }
+
+            if (first.data != last.data) {
+                return false;
+            }
+
+            first = first.next;
+            i++;
+
+        }
+
+        return true;
+    }
+
     public static void printLinkedList(Node l) {
         // we just need head to iterate through linkedlist and a temporary variable
         if (head == null) {
@@ -219,19 +244,19 @@ public class LinkedList {
         // confusing so we created seperate add function for that
 
         LinkedList L1 = new LinkedList();
-        L1.addFirst(50);
-        L1.addFirst(40);
+        L1.addFirst(10);
+        L1.addFirst(30);
         L1.addFirst(20);
         L1.addFirst(10);
 
         // Node temp = head;
-        // while (temp != null) {
+        // while (temp != null) {`
         // System.out.println(temp.data + "");
         // temp = temp.next;
         // }
 
         // LinkedList.printLinkedList(head);
-        L1.add(2, 30);
+        // L1.add(2, 30);
         // LinkedList.printLinkedList(head);
         // System.out.println(size);
 
@@ -244,8 +269,10 @@ public class LinkedList {
         // L1.reverseList();
         // LinkedList.printLinkedList(head);
 
-        L1.deleteNthNode(2);
-        LinkedList.printLinkedList(head);
+        // L1.deleteNthNode(2);
+        // LinkedList.printLinkedList(head);
+
+        System.out.println(L1.checkPalindrome());
 
     }
 }
