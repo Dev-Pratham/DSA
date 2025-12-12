@@ -161,6 +161,35 @@ public class LinkedList {
         head = prev;
     }
 
+    public void deleteNthNode(int n) {
+
+        // edge cases
+        if (size == 0) {
+            System.out.println("Link list is empty");
+            return;
+        }
+        if (size == n) {
+            delFirst();
+        }
+
+        if (size < n) {
+            System.out.println("Size out of limit of link list");
+        }
+
+        int i = 0;
+        Node temp = head;
+        // reach the previous node
+        while (i < size - n - 1) {
+            temp = temp.next;
+            i++;
+        }
+        Node delNode = temp.next;
+        Node next = delNode.next;
+        temp.next = next;
+
+        return;
+    }
+
     public static void printLinkedList(Node l) {
         // we just need head to iterate through linkedlist and a temporary variable
         if (head == null) {
@@ -207,12 +236,15 @@ public class LinkedList {
         // System.out.println(size);
 
         // L1.delLast();
-        LinkedList.printLinkedList(head);
+        // LinkedList.printLinkedList(head);
 
-        System.out.println(L1.Search(30, head));
-        System.out.println(L1.RecursiveSearch(30, head, 0));
+        // System.out.println(L1.Search(30, head));
+        // System.out.println(L1.RecursiveSearch(30, head, 0));
 
-        L1.reverseList();
+        // L1.reverseList();
+        // LinkedList.printLinkedList(head);
+
+        L1.deleteNthNode(2);
         LinkedList.printLinkedList(head);
 
     }
