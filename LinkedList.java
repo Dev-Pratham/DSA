@@ -215,6 +215,59 @@ public class LinkedList {
         return true;
     }
 
+    public Node findMidNode() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    // Thia approach uses slow fast approach
+    // find mid
+    // reverse ll 2nd half
+    // match the first half with 2nd half
+    public boolean checkPalindrome2() {
+
+        // corner case either empty or single element
+        if (head == null || head.next == null) {
+            return true;
+        }
+        // mid is tail here
+        Node mid = findMidNode();
+        // reverse ll from
+        Node prev = null;
+        Node curr = mid;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        // This head is of right half
+        Node head2 = prev;
+        // Head 1 is used becaues if we use head directly it can break link list
+        // This is first half
+        Node head1 = head;
+
+        while (head2 != null) {
+            if (head1.data != head2.data) {
+                return false;
+            }
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+
+        return true;
+
+    }
+
     public static void printLinkedList(Node l) {
         // we just need head to iterate through linkedlist and a temporary variable
         if (head == null) {
@@ -245,7 +298,7 @@ public class LinkedList {
 
         LinkedList L1 = new LinkedList();
         L1.addFirst(10);
-        L1.addFirst(30);
+        L1.addFirst(20);
         L1.addFirst(20);
         L1.addFirst(10);
 
@@ -273,6 +326,7 @@ public class LinkedList {
         // LinkedList.printLinkedList(head);
 
         System.out.println(L1.checkPalindrome());
+        System.out.println(L1.checkPalindrome2());
 
     }
 }
