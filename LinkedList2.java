@@ -59,6 +59,21 @@ public class LinkedList2 {
 
     }
 
+    public void addLast(int data) {
+
+        Node newNode = new Node(data);
+        size++;
+        // This case checks whether the linklist is empty or what
+        if (head == null) {
+            head = tail = newNode;
+            tail.next = head;
+            return;
+        }
+        tail.next = newNode;
+        tail = newNode;
+        tail.next = head;
+    }
+
     public void display(Node head) {
 
         if (size == 0) {
