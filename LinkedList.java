@@ -109,6 +109,7 @@ public class LinkedList {
 
         temp.next = null;
         tail = temp;
+        size--;
         return;
 
     }
@@ -118,7 +119,7 @@ public class LinkedList {
         int i = 0;
         Node temp = head;
         // can iterate either using size or null using size for simplicity
-        while (i < size - 1) {
+        while (i < size) {
             // search for key
             if (temp.data == key) {
                 return (i + 1);
@@ -170,10 +171,12 @@ public class LinkedList {
         }
         if (size == n) {
             delFirst();
+            return;
         }
 
         if (size < n) {
             System.out.println("Size out of limit of link list");
+            return;
         }
 
         int i = 0;
@@ -186,6 +189,7 @@ public class LinkedList {
         Node delNode = temp.next;
         Node next = delNode.next;
         temp.next = next;
+        size--;
 
         return;
     }
