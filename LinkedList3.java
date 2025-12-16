@@ -88,6 +88,25 @@ public class LinkedList3 {
 
     }
 
+    public void reverse() {
+
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            // This is that extra line
+            curr.prev = next;
+            prev = curr;
+            curr = next;
+        }
+
+        head = prev;
+
+    }
+
     public void print() {
 
         Node temp = head;
