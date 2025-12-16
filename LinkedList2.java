@@ -1,5 +1,5 @@
 public class LinkedList2 {
-
+    // This code is for singly circular linked list
     public static class Node {
         int data;
         Node next;
