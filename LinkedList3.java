@@ -107,6 +107,53 @@ public class LinkedList3 {
 
     }
 
+    // Helper function for zig-zag using slow pointer approach
+    public Node findMid() {
+
+        Node slow = head;
+        Node fast = head;
+
+        // This condition is necessary
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    // zig zag is operation for modifying the original linked list itself not about
+    // just printing it
+    public void zigZag() {
+
+        Node mid = findMid();
+        Node prev = null;
+        Node curr = mid.next;
+        mid.next = null;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node Left = head;
+        Node Right = prev;
+
+        while (Left != null && Right != null) {
+
+            Node lnext = Left.next;
+            Left.next = Right;
+            Node rnext = Right.next;
+            Right.next = lnext;
+            Left = lnext;
+            Right = rnext;
+        }
+
+    }
+
     public void print() {
 
         Node temp = head;
@@ -123,10 +170,20 @@ public class LinkedList3 {
     public static void main(String args[]) {
 
         LinkedList3 l = new LinkedList3();
-        l.addFirst(10);
-        l.addFirst(20);
-        l.addFirst(30);
+        l.addLast(1);
+        l.addLast(2);
+        l.addLast(3);
+        l.addLast(4);
+        l.addLast(5);
+        l.addLast(6);
+        l.addLast(7);
+        // l.print();
+
+        // zig-zag caller
+        l.zigZag();
         l.print();
+        System.out.println(l.tail);
+
     }
 
 }
