@@ -108,10 +108,10 @@ public class LinkedList3 {
     }
 
     // Helper function for zig-zag using slow pointer approach
-    public Node findMid() {
+    public Node findMid(Node hea) {
 
-        Node slow = head;
-        Node fast = head;
+        Node slow = hea;
+        Node fast = hea.next;
 
         // This condition is necessary
         while (fast != null && fast.next != null) {
@@ -126,7 +126,7 @@ public class LinkedList3 {
     // just printing it
     public void zigZag() {
 
-        Node mid = findMid();
+        Node mid = findMid(head);
         Node prev = null;
         Node curr = mid.next;
         mid.next = null;
@@ -151,6 +151,60 @@ public class LinkedList3 {
             Left = lnext;
             Right = rnext;
         }
+
+    }
+
+    public Node merge(Node head1, Node head2) {
+
+        Node temp = new Node(-1);
+        Node mergedll = temp;
+
+        while (head1 != null && head2 != null) {
+
+            if (head1.data < head2.data) {
+                temp.next = head1;
+                head1 = head1.next;
+
+            } else {
+                temp.next = head2;
+                head2 = head2.next;
+            }
+            temp = temp.next;
+
+        }
+
+        while (head1 != null) {
+            temp.next = head1;
+            head1 = head1.next;
+            temp = temp.next;
+        }
+
+        while (head2 != null) {
+            temp.next = head2;
+            head2 = head2.next;
+            temp = temp.next;
+        }
+
+        // returning to remove -1
+        return mergedll.next;
+
+    }
+
+    public Node mergeSort(Node head) {
+        // base case when head is a single we return it
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node left = head;
+        Node mid = findMid(head);
+        Node right = mid.next;
+        mid.next = null;
+
+        Node newLeft = mergeSort(left);
+        Node newRight = mergeSort(right);
+
+        return merge(newLeft, newRight);
 
     }
 
@@ -179,10 +233,13 @@ public class LinkedList3 {
         l.addLast(7);
         // l.print();
 
-        // zig-zag caller
-        l.zigZag();
+        // // zig-zag caller
+        // l.zigZag();
+        // l.print();
+        // System.out.println(l);
+
+        l.head = l.mergeSort(l.head);
         l.print();
-        System.out.println(l.tail);
 
     }
 
