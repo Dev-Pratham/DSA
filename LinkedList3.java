@@ -111,6 +111,7 @@ public class LinkedList3 {
     public Node findMid(Node hea) {
 
         Node slow = hea;
+        // this gives mid of first half last node
         Node fast = hea.next;
 
         // This condition is necessary
@@ -208,6 +209,23 @@ public class LinkedList3 {
 
     }
 
+    // This approach uses floyeds algo
+    // similar to 2 pointer approach
+    public static boolean detectCycle(Node head) {
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void print() {
 
         Node temp = head;
@@ -238,8 +256,15 @@ public class LinkedList3 {
         // l.print();
         // System.out.println(l);
 
+        // This part is for mergesort
         l.head = l.mergeSort(l.head);
         l.print();
+
+        // This part is for detecting cycles
+        Node head2 = new Node(1);
+        head2.next = new Node(2);
+        head2.next.next = head2;
+        System.out.println(detectCycle(head2));
 
     }
 
