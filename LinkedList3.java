@@ -226,6 +226,41 @@ public class LinkedList3 {
         return false;
     }
 
+    public void removeCycle(Node head) {
+        // detect cycle
+        Node slow = head;
+        Node fast = head;
+        boolean isCycle = false;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                isCycle = true;
+                break;
+            }
+        }
+
+        // If no cycle exists simply return
+        if (isCycle == false) {
+            return;
+        }
+
+        // reset slow to head and much slow and fast by 1 each time
+        // just before fast meets slow . Fast will be at the last node
+        // we will make it to null breaking the loop
+        slow = head;
+        Node prev = null;
+        while (slow != fast) {
+            prev = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        prev.next = null;
+
+    }
+
     public void print() {
 
         Node temp = head;
