@@ -50,6 +50,9 @@ public class LinkedList4 {
     }
 
     // This is my copy apporach used in real world approaches
+    // This approach will not simply work incase of intersection
+    // case in deepcopy we have to update the tail too
+    // This apprach will not work with 2 pointers
     public void link(Node l1, int index) {
 
         int i = 0;
@@ -67,6 +70,7 @@ public class LinkedList4 {
         }
 
         prev = temp;
+        // here tail is also updating through addlast
         while (prev != null) {
             addLast(prev.data);
             prev = prev.next;
@@ -91,7 +95,45 @@ public class LinkedList4 {
         }
 
         this.tail.next = temp;
-        this.tail = l1.tail;
+        // Not updating tail so that we can use it for matching purpose
+        // this.tail = l1.tail;
+    }
+
+    // This part is to detect the node where the linkage occours
+    public static int getLinkIndex2(LinkedList4 l1, LinkedList4 l2) {
+
+        Node head1 = l1.head;
+        Node head2 = l2.head;
+
+        if (l1.tail.next == null && l2.tail.next == null) {
+            System.out.println("No link founds between 2 lists");
+            return -1;
+        }
+
+        if (l1.tail.next != null && l2.tail.next != null) {
+            // invalid case according to problem statement
+            // both links are connected to one another invalid link
+            return -1;
+        }
+
+        // if link2 is attached to link1
+        while (head1 != null) {
+            if (head1 == l2.tail.next) {
+                return head1.data;
+            }
+            head1 = head1.next;
+        }
+
+        // if link1 is attached to link2
+        while (head2 != null) {
+            if (head2 == l1.tail.next) {
+                return head2.data;
+            }
+            head2 = head2.next;
+        }
+
+        return -1;
+
     }
 
     public void printLinkedList() {
@@ -120,9 +162,13 @@ public class LinkedList4 {
         l2.addLast(4);
         l2.addLast(5);
 
-        l2.link(l1.head, 4);
-
+        // This link is of deep copy with tail updation
+        // l2.link(l1.head, 4);
+        // This link is of shallow copy without tail updation
+        l2.link2(l1, 4);
         l2.printLinkedList();
+
+        System.out.println("Merging Node:" + getLinkIndex2(l1, l2));
 
     }
 }
