@@ -100,7 +100,8 @@ public class LinkedList4 {
     }
 
     // This part is to detect the node where the linkage occours
-    public static int getLinkIndex2(LinkedList4 l1, LinkedList4 l2) {
+    // bruteforce appraoch
+    public static int getLinkNode(LinkedList4 l1, LinkedList4 l2) {
 
         Node head1 = l1.head;
         Node head2 = l2.head;
@@ -136,6 +137,29 @@ public class LinkedList4 {
 
     }
 
+    public static Node getLinkNode2(LinkedList4 l1, LinkedList4 l2) {
+        // This is 2 pointer approach
+
+        // Idea (simple words)
+
+        // Use two pointers, one for each list
+        // When a pointer reaches the end of a list, jump it to the head of the other
+        // list
+        // If the lists intersect, the pointers will meet at the merge node
+        // If not, both will become null at the same tim
+
+        Node p1 = l1.head;
+        Node p2 = l2.head;
+
+        while (p1 != p2) {
+            p1 = (p1 != null) ? p1.next : l2.head;
+            p2 = (p2 != null) ? p2.next : l1.head;
+        }
+
+        return p1;
+
+    }
+
     public void printLinkedList() {
 
         Node temp = head;
@@ -168,7 +192,7 @@ public class LinkedList4 {
         l2.link2(l1, 4);
         l2.printLinkedList();
 
-        System.out.println("Merging Node:" + getLinkIndex2(l1, l2));
+        System.out.println("Merging Node:" + getLinkNode(l1, l2));
 
     }
 }
