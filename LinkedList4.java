@@ -160,6 +160,35 @@ public class LinkedList4 {
 
     }
 
+    // delete n nodes after travelling m nodes
+    public void delMN(int m, int n, Node tem) {
+
+        if (tem == null || m <= 0 || n <= 0)
+            return;
+
+        Node temp = tem;
+
+        // Move to m-th node
+        for (int i = 1; i < m && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null)
+            return;
+
+        Node temp2 = temp.next;
+
+        // Delete n nodes
+        for (int j = 0; j < n && temp2 != null; j++) {
+            temp2 = temp2.next;
+        }
+
+        temp.next = temp2;
+
+        // Recurse for remaining list
+        delMN(m, n, temp);
+    }
+
     public void printLinkedList() {
 
         Node temp = head;
@@ -178,6 +207,9 @@ public class LinkedList4 {
         l1.addLast(3);
         l1.addLast(6);
         l1.addLast(7);
+        l1.addLast(8);
+        l1.addLast(9);
+        l1.addLast(10);
 
         // l1.printLinkedList();
 
@@ -193,6 +225,9 @@ public class LinkedList4 {
         l2.printLinkedList();
 
         System.out.println("Merging Node:" + getLinkNode(l1, l2));
+
+        l1.delMN(2, 2, l1.head);
+        l1.printLinkedList();
 
     }
 }
