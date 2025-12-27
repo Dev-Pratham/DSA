@@ -163,30 +163,37 @@ public class LinkedList4 {
     // delete n nodes after travelling m nodes
     public void delMN(int m, int n, Node tem) {
 
-        if (tem == null || m <= 0 || n <= 0)
+        if (tem == null || m <= 0 || n <= 0) {
+
             return;
-
+        }
         Node temp = tem;
-
-        // Move to m-th node
-        for (int i = 1; i < m && temp != null; i++) {
+        int i = 0;
+        while (i < m - 1 && temp != null) {
             temp = temp.next;
+            i++;
         }
 
-        if (temp == null)
+        if (temp == null) {
             return;
+        }
 
         Node temp2 = temp.next;
-
-        // Delete n nodes
-        for (int j = 0; j < n && temp2 != null; j++) {
+        int j = 0;
+        while (j < n - 1 && temp2 != null) {
             temp2 = temp2.next;
+            j++;
         }
 
-        temp.next = temp2;
+        if (temp2.next == null) {
+            temp.next = null;
+            return;
+        }
 
-        // Recurse for remaining list
-        delMN(m, n, temp);
+        temp.next = temp2.next;
+        delMN(m, n, temp.next);
+        return;
+
     }
 
     public void printLinkedList() {
