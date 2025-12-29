@@ -35,6 +35,9 @@ public class StackBasics {
             return list.size() == 0;
         }
 
+        // we can make it puclic but should not make it static because
+        // static methods do not belongs to an object and they cannot access
+        // instance variable like list
         void push(int data) {
             list.add(data);
             return;
