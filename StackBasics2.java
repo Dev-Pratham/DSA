@@ -75,5 +75,8 @@ public class StackBasics2 {
             s.pop();
         }
 
+        // this is the way for java collection framework
+        // Stack<Integer> s = new Stack<>();
+
     }
 }
