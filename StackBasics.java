@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+//This stack implementation is uing arraylist
 public class StackBasics {
 
     // Stack does
