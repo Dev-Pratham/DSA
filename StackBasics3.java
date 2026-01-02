@@ -54,6 +54,19 @@ public class StackBasics3 {
         }
     }
 
+    // reverse a stack
+    public static void reverseStack(Stack<Integer> s) {
+        // base case is reached when stack becomes empty
+        if (s.isEmpty()) {
+            return;
+        }
+
+        int top = s.pop();
+        reverseStack(s);
+        // simply add bottom will do the job
+        addBottom(top, s);
+    }
+
     public static void main(String args[]) {
 
         // Stack<Integer> s = new Stack<>();
@@ -65,13 +78,21 @@ public class StackBasics3 {
         // System.out.println(s);
 
         // reverse string using stringbuilder
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter your string to be reversed : ");
-        StringBuilder sb = new StringBuilder(sc.nextLine());
-        sc.close();
+        // Scanner sc = new Scanner(System.in);
+        // System.out.print("Enter your string to be reversed : ");
+        // StringBuilder sb = new StringBuilder(sc.nextLine());
+        // sc.close();
 
-        reverseString(sb);
-        System.out.println(sb);
+        // reverseString(sb);
+        // System.out.println(sb);
+
+        // revese a stack using no extra memory
+        Stack<Integer> s = new Stack<>();
+        s.push(30);
+        s.push(20);
+        s.push(10);
+        reverseStack(s);
+        System.out.println(s);
 
     }
 }
