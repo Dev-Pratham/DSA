@@ -18,13 +18,30 @@ public class StackBasics3 {
 
     }
 
+    // This approach uses recursion
+    // and has space complexity of 0(1)
+    public static void addBottom2(int data, Stack<Integer> s) {
+
+        if (s.isEmpty()) {
+            s.push(data);
+            return;
+        }
+
+        s.pop();
+        addBottom(data, s);
+        int top = s.peek();
+        s.push(top);
+
+    }
+
     public static void main(String args[]) {
 
         Stack<Integer> s = new Stack<>();
         s.push(10);
         s.push(20);
         s.push(30);
-        addBottom(40, s);
+        s.push(50);
+        addBottom2(40, s);
         System.out.println(s);
     }
 }
