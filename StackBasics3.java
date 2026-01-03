@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -67,6 +68,34 @@ public class StackBasics3 {
         addBottom(top, s);
     }
 
+    // stock span function returning array of span
+    public static int[] stockSpan(int stock[]) {
+
+        int span[] = new int[stock.length];
+        Stack<Integer> s = new Stack<>();
+
+        s.push(0);
+        span[0] = 1;
+        for (int i = 1; i < stock.length; i++) {
+
+            // pop while the current price is higher than in stack
+            while (!s.isEmpty() && stock[s.peek()] <= stock[i]) {
+                s.pop();
+            }
+
+            if (s.isEmpty()) {
+                span[i] = i + 1;
+            } else {
+                span[i] = i - s.peek();
+            }
+            s.push(i);
+
+        }
+
+        return span;
+
+    }
+
     public static void main(String args[]) {
 
         // Stack<Integer> s = new Stack<>();
@@ -87,12 +116,19 @@ public class StackBasics3 {
         // System.out.println(sb);
 
         // revese a stack using no extra memory
-        Stack<Integer> s = new Stack<>();
-        s.push(30);
-        s.push(20);
-        s.push(10);
-        reverseStack(s);
-        System.out.println(s);
+        // Stack<Integer> s = new Stack<>();
+        // s.push(30);
+        // s.push(20);
+        // s.push(10);
+        // reverseStack(s);
+        // System.out.println(s);
+
+        // stock span problem
+        int stocks[] = { 100, 80, 60, 70, 60, 85, 100 };
+        int res[] = stockSpan(stocks);
+        for (int i = 0; i < res.length; i++) {
+            System.out.print(res[i] + " ");
+        }
 
     }
 }
