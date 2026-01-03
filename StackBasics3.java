@@ -83,6 +83,8 @@ public class StackBasics3 {
                 s.pop();
             }
 
+            // pop kerte kerte agar empty hogya this means all the elemnts
+            // are smaller than the current price so in that case index+1
             if (s.isEmpty()) {
                 span[i] = i + 1;
             } else {
