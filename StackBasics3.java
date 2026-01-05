@@ -100,29 +100,24 @@ public class StackBasics3 {
 
     public static int[] nxtGreaterElement(int arr[]) {
 
+        // initialized output stack to same size
         int out[] = new int[arr.length];
         Stack<Integer> s = new Stack<>();
-        s.push(0);
+
+        // initialized iterator for output array
         int j = 0;
-        int k;
 
         for (int i = 1; i < arr.length; i++) {
-            k = i;
-            while (s.peek() != arr.length - 1) {
-                s.push(k);
-                if (arr[s.peek()] > arr[j]) {
-                    out[j] = arr[s.peek()];
-                    j++;
-                    break;
-                } else {
-                    k++;
-                }
-            }
-            if (s.peek() == arr.length - 1) {
+            s.push(i);
+            if (arr[s.peek()] > arr[j]) {
+                out[j] = arr[s.peek()];
+            } else {
                 out[j] = -1;
-                j++;
             }
+            j++;
         }
+
+        out[arr.length - 1] = -1;
 
         return out;
     }
@@ -169,7 +164,10 @@ public class StackBasics3 {
 
         // next greater element problem
         int arr[] = { 6, 8, 0, 1, 3 };
-        int res[] = nxtGreaterElement(arr);
+        int arr2[] = { 1, 2, 3, 4, 5 };
+        int arr3[] = { 5, 4, 3, 2, 1 };
+        int arr4[] = { 10, 6, 2, 5, 8, 1, 11 };
+        int res[] = nxtGreaterElement(arr4);
         prinArr(res);
 
     }
