@@ -157,6 +157,52 @@ public class StackBasics3 {
         return out;
     }
 
+    public static boolean isOpen(char c) {
+
+        if (c == '(' || c == '{' || c == '[') {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isPair(char c1, char c2) {
+
+        if (c1 == '{' && c2 == '}') {
+            return true;
+        }
+        if (c1 == '(' && c2 == ')') {
+            return true;
+        }
+        if (c1 == '[' && c2 == ']') {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isValidParenthesis(String s) {
+
+        Stack<Character> cstack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (isOpen(s.charAt(i))) {
+                cstack.push(s.charAt(i));
+            } else {
+                if (isPair(cstack.peek(), s.charAt(i))) {
+                    cstack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        if (!cstack.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     public static void prinArr(int arr[]) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -199,8 +245,12 @@ public class StackBasics3 {
 
         // next greater element problem
         // int arr[] = { 6, 8, 0, 1, 3 };
-        int arr[] = { 4, 5, 2, 25 };
-        int res[] = test2(arr);
-        prinArr(res);
+        // int arr[] = { 4, 5, 2, 25 };
+        // int res[] = test2(arr);
+        // prinArr(res);
+
+        // isvalid parentehsis
+        String w = "(({[]}()))";
+        System.out.println(isValidParenthesis(w));
     }
 }
