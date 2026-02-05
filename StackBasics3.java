@@ -123,6 +123,40 @@ public class StackBasics3 {
 
     }
 
+    public static int[] test2(int arr[]) {
+        int n = arr.length;
+        int out[] = new int[arr.length];
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+
+            if (s.isEmpty()) {
+                out[i] = -1;
+                s.push(arr[i]);
+                continue;
+            }
+
+            if (arr[i] < s.peek()) {
+                out[i] = s.peek();
+                s.push(arr[i]);
+            } else {
+                while (!s.isEmpty() && s.peek() < arr[i]) {
+                    s.pop();
+                }
+                if (s.isEmpty()) {
+                    out[i] = -1;
+                } else {
+
+                    out[i] = s.peek();
+                }
+                s.push(arr[i]);
+            }
+
+        }
+
+        return out;
+    }
+
     public static void prinArr(int arr[]) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -164,8 +198,9 @@ public class StackBasics3 {
         // }
 
         // next greater element problem
-        int arr[] = { 6, 8, 0, 1, 3 };
-        int res[] = nxtGreaterElement(arr);
+        // int arr[] = { 6, 8, 0, 1, 3 };
+        int arr[] = { 4, 5, 2, 25 };
+        int res[] = test2(arr);
         prinArr(res);
     }
 }
