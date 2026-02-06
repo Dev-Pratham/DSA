@@ -240,6 +240,95 @@ public class StackBasics3 {
         return false;
     }
 
+    // helper for maxAreaHistogram
+    public static int[] nxtSmlstRight(int arr[]) {
+        int n = arr.length;
+        int out[] = new int[arr.length];
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+
+            if (s.isEmpty()) {
+                out[i] = n;
+                s.push(i);
+                continue;
+            }
+
+            if (arr[i] > arr[s.peek()]) {
+                out[i] = s.peek();
+                s.push(i);
+            } else {
+                while (!s.isEmpty() && arr[s.peek()] > arr[i]) {
+                    s.pop();
+                }
+                if (s.isEmpty()) {
+                    out[i] = n;
+                } else {
+
+                    out[i] = s.peek();
+                }
+                s.push(i);
+            }
+
+        }
+
+        return out;
+    }
+
+    // helper for maxAreaHistogram
+    public static int[] nxtSmlstLeft(int arr[]) {
+        int n = arr.length;
+        int out[] = new int[arr.length];
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+
+            if (s.isEmpty()) {
+                out[i] = -1;
+                s.push(i);
+                continue;
+            }
+
+            if (arr[i] > arr[s.peek()]) {
+                out[i] = s.peek();
+                s.push(i);
+            } else {
+                while (!s.isEmpty() && arr[s.peek()] > arr[i]) {
+                    s.pop();
+                }
+                if (s.isEmpty()) {
+                    out[i] = -1;
+                } else {
+
+                    out[i] = s.peek();
+                }
+                s.push(i);
+            }
+
+        }
+
+        return out;
+    }
+
+    public static int maxAreaHistogram(int arr[]) {
+
+        // precalculate next smallest left and right in an array
+        // this is i
+        int nextSmallestLeft[] = nxtSmlstLeft(arr);
+        int nextSmallestRight[] = nxtSmlstRight(arr);
+
+        int maxArea = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+
+            int area = arr[i] * (nextSmallestRight[i] - nextSmallestLeft[i] - 1);
+            if (maxArea < area) {
+                maxArea = area;
+            }
+        }
+        return maxArea;
+
+    }
+
     public static void main(String args[]) {
 
         // Stack<Integer> s = new Stack<>();
@@ -284,10 +373,15 @@ public class StackBasics3 {
         // String w = "(({[]}()))";
         // System.out.println(isValidParenthesis(w));
 
-        // isDuplicate
-        String w = "(((a+b))+c)";
-        String w2 = "(a+b)";
-        System.out.println(isDuplicate(w));
+        // isDuplicate parenthesis
+        // String w = "(((a+b))+c)";
+        // String w2 = "(a+b)";
+        // System.out.println(isDuplicate(w));
+
+        // histogram max area
+        int arr[] = { 2, 1, 5, 6, 2, 3 };
+        int res = maxAreaHistogram(arr);
+        System.out.println(res);
 
     }
 }
