@@ -321,6 +321,7 @@ public class StackBasics3 {
         for (int i = 0; i < arr.length; i++) {
 
             int area = arr[i] * (nextSmallestRight[i] - nextSmallestLeft[i] - 1);
+            // arr[i] is height and another expression is width
             if (maxArea < area) {
                 maxArea = area;
             }
