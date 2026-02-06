@@ -209,6 +209,37 @@ public class StackBasics3 {
         }
     }
 
+    public static boolean isClosing(char ch) {
+
+        if (ch == ')' || ch == '}' || ch == ']') {
+            return true;
+        }
+
+        return false;
+    }
+
+    // duplicate parenthesis
+    public static boolean isDuplicate(String w) {
+
+        Stack<Character> s = new Stack<>();
+        for (int i = 0; i < w.length(); i++) {
+
+            if (!isClosing(w.charAt(i))) {
+                s.push(w.charAt(i));
+            } else {
+                int count = 0;
+                while (!s.isEmpty() && s.peek() != w.charAt(i)) {
+                    count++;
+                    s.pop();
+                }
+                if (count < 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void main(String args[]) {
 
         // Stack<Integer> s = new Stack<>();
@@ -250,7 +281,13 @@ public class StackBasics3 {
         // prinArr(res);
 
         // isvalid parentehsis
-        String w = "(({[]}()))";
-        System.out.println(isValidParenthesis(w));
+        // String w = "(({[]}()))";
+        // System.out.println(isValidParenthesis(w));
+
+        // isDuplicate
+        String w = "(((a+b))+c)";
+        String w2 = "(a+b)";
+        System.out.println(isDuplicate(w));
+
     }
 }
