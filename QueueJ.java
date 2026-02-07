@@ -1,5 +1,5 @@
 public class QueueJ {
-    // implementing queue using array
+    // implementing simple queue using array
     public static class Queue {
 
         int arr[];
@@ -26,16 +26,25 @@ public class QueueJ {
             return;
         }
 
-        void remove() {
+        int remove() {
 
             // check whether queue is already empty
             if (front > rear) {
                 System.out.println("Queue is empty");
-                return;
+                return -1;
             }
 
-            front = front + 1;
-            return;
+            int removed = arr[front];
+            // we should not change front as in array implementation using aapna college
+            // 0(n)
+            // front = front + 1;
+            // now we need to also remove the element from that array
+
+            for (int i = 0; i < capacity; i++) {
+                arr[i] = arr[i + 1];
+            }
+            rear = rear - 1;
+            return removed;
 
         }
 
@@ -43,9 +52,8 @@ public class QueueJ {
             // check whether queue is already empty
             if (front > rear) {
                 System.out.println("Queue is empty");
-                return -100000000;
+                return -1;
             }
-
             return arr[front];
 
         }
@@ -72,7 +80,7 @@ public class QueueJ {
 
     public static void main(String args[]) {
 
-        Queue q = new Queue(5);
+        Queue q = new Queue(1);
         q.insert(1);
         q.insert(2);
         q.insert(3);
