@@ -1,5 +1,5 @@
 public class QueueJ3 {
-
+    // This is queue implementation using linkedlist
     public static class Node {
         int data;
         Node next;
