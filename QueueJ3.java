@@ -35,23 +35,23 @@ public class QueueJ3 {
     }
 
     // remove from queue
-    public void remove() {
+    public Node remove() {
         // if no element exists in queue
         if (head == null) {
             System.out.println("Queue is empty");
-            return;
+            return null;
         }
 
         // if just one element exists
         if (head == tail) {
             head = tail = null;
             size--;
-            return;
+            return null;
         }
 
         head = head.next;
         size--;
-        return;
+        return head;
     }
 
     // peek operation
@@ -62,6 +62,17 @@ public class QueueJ3 {
         }
 
         return head.data;
+
+    }
+
+    // check whether queue is empty
+    public boolean isEmpty() {
+
+        if (head == null) {
+            return true;
+        }
+
+        return false;
 
     }
 
