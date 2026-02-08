@@ -51,10 +51,8 @@ public class StackBasics4 {
                 return;
             }
 
-            temp = q1;
-
-            while (!temp.isEmpty()) {
-                System.out.println(temp.remove());
+            for (int x : q1) {
+                System.out.println(x);
             }
         }
 

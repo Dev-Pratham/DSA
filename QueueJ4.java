@@ -3,6 +3,45 @@ import java.util.LinkedList;
 
 public class QueueJ4 {
     // Queue using java collection framework
+
+    public static String nonRepeatingLetter(String w) {
+
+        StringBuilder sb = new StringBuilder();
+        int freq[] = new int[26];
+        Queue<Character> q = new LinkedList<>();
+
+        for (int i = 0; i < w.length(); i++) {
+
+            // add in the queue
+            char ch = w.charAt(i);
+            q.add(ch);
+
+            // increase frequency
+            freq[ch - 97]++;
+
+            // check in queue whether the frequency is <1 for non repeating letters
+            // if less than one we simply append
+            if (freq[q.peek() - 97] <= 1) {
+                sb.append(q.peek());
+            } else {
+                // if greater than 1 we remove until we found element <1
+                while ((!q.isEmpty() && freq[q.peek() - 97] > 1)) {
+                    q.remove();
+                }
+                // similarly when removing if queue becomes empty append -1
+                if (q.isEmpty()) {
+                    sb.append(-1);
+                    // if not then append q.peek as it contains letter of non repeating
+                } else {
+                    sb.append(q.peek());
+                }
+            }
+
+        }
+
+        return sb.toString();
+    }
+
     public static void main(String args[]) {
         // there are 2 classes which are used to implement queue in java
         // -linkedlist
@@ -13,6 +52,11 @@ public class QueueJ4 {
         q.add(1);
         q.add(2);
         q.add(3);
+
+        // First non repeating letter problem
+        String w = "aabccxb";
+        String res = nonRepeatingLetter(w);
+        System.out.println(res);
 
     }
 }
