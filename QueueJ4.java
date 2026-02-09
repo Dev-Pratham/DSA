@@ -3,6 +3,7 @@ import java.util.Stack;
 
 import javax.naming.LinkLoopException;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class QueueJ4 {
@@ -127,16 +128,26 @@ public class QueueJ4 {
         // System.out.println(res);
 
         // interleave queue
-        Queue<Integer> q1 = new LinkedList<>();
+        // Queue<Integer> q1 = new LinkedList<>();
 
-        for (int i = 1; i <= 10; i++) {
-            q1.add(i);
-        }
+        // for (int i = 1; i <= 10; i++) {
+        // q1.add(i);
+        // }
 
         // interleave(q1);
+
+        // reversal
         // q1 = reversal(q1);
-        reversal2(q1);
-        System.out.println(q1);
+        // reversal2(q1);
+        // System.out.println(q1);
+
+        // deque double ended queue can be added and removed from both sides
+
+        Deque<Integer> dq = new LinkedList<>();
+        dq.addFirst(10);
+        dq.addFirst(20);
+        int first = dq.getFirst();
+        int last = dq.getLast();
 
     }
 }
