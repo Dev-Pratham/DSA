@@ -41,6 +41,38 @@ public class QueueJ6 {
 
     }
 
+    // implemented queue using deque
+    public static class Queue {
+
+        Deque<Integer> dq = new LinkedList<>();
+
+        void add(int data) {
+            dq.addLast(data);
+        }
+
+        int remove() {
+            if (dq.isEmpty()) {
+                System.out.println("Queue is Empty");
+                return -1;
+            }
+
+            return dq.removeFirst();
+        }
+
+        int peek() {
+            if (dq.isEmpty()) {
+                System.out.println("Queue is Empty");
+                return -1;
+            }
+
+            return dq.getFirst();
+        }
+
+        boolean isEmpty() {
+            return dq.isEmpty();
+        }
+    }
+
     public static void main(String args[]) {
 
         Stack s = new Stack();
@@ -50,6 +82,15 @@ public class QueueJ6 {
 
         while (!s.isEmpty()) {
             System.out.println(s.pop());
+        }
+
+        Queue q = new Queue();
+        q.add(10);
+        q.add(20);
+        q.add(30);
+
+        while (!q.isEmpty()) {
+            System.out.println(q.remove());
         }
 
     }
