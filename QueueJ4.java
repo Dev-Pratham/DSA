@@ -1,4 +1,8 @@
 import java.util.Queue;
+import java.util.Stack;
+
+import javax.naming.LinkLoopException;
+
 import java.util.LinkedList;
 
 public class QueueJ4 {
@@ -67,6 +71,45 @@ public class QueueJ4 {
 
     }
 
+    // here it returns the reversed queue not actual queue is reversed
+    public static Queue<Integer> reversal(Queue<Integer> q) {
+        // o(n^2) complexity
+        Queue<Integer> q1 = new LinkedList<>();
+        Queue<Integer> q2 = new LinkedList<>();
+        Queue<Integer> temp = new LinkedList<>();
+
+        while (!q.isEmpty()) {
+            q2.add(q.remove());
+
+            while (!q1.isEmpty()) {
+                q2.add(q1.remove());
+            }
+
+            temp = q2;
+            q2 = q1;
+            q1 = temp;
+        }
+
+        q = q1;
+        return q;
+
+    }
+
+    // queue reversal using stack 0(n) complexity
+    public static void reversal2(Queue<Integer> q) {
+
+        Stack<Integer> s = new Stack<>();
+
+        while (!q.isEmpty()) {
+            s.push(q.remove());
+        }
+
+        while (!s.isEmpty()) {
+            q.add(s.pop());
+        }
+
+    }
+
     public static void main(String args[]) {
         // there are 2 classes which are used to implement queue in java
         // -linkedlist
@@ -90,7 +133,9 @@ public class QueueJ4 {
             q1.add(i);
         }
 
-        interleave(q1);
+        // interleave(q1);
+        // q1 = reversal(q1);
+        reversal2(q1);
         System.out.println(q1);
 
     }
