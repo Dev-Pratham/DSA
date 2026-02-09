@@ -42,21 +42,56 @@ public class QueueJ4 {
         return sb.toString();
     }
 
+    // interleave 2 half of queue
+
+    public static void interleave(Queue<Integer> q) {
+
+        Queue<Integer> q1st = new LinkedList<>();
+        int size = q.size();
+        int i = 1;
+        // removing half element from the original queue and addint to new queue
+        while (i <= size / 2) {
+            int res = q.peek();
+            q1st.add(res);
+            q.remove();
+            i++;
+        }
+
+        // add the first element from q1st and remove from original and add to original
+        while (!q1st.isEmpty()) {
+            int res = q1st.remove();
+            q.add(res);
+            int res2 = q.remove();
+            q.add(res2);
+        }
+
+    }
+
     public static void main(String args[]) {
         // there are 2 classes which are used to implement queue in java
         // -linkedlist
         // arrayDeque
 
         // because queue can not has object because its an interface
-        Queue<Integer> q = new LinkedList<>();
-        q.add(1);
-        q.add(2);
-        q.add(3);
+        // Queue<Integer> q = new LinkedList<>();
+        // q.add(1);
+        // q.add(2);
+        // q.add(3);
 
         // First non repeating letter problem
-        String w = "aabccxb";
-        String res = nonRepeatingLetter(w);
-        System.out.println(res);
+        // String w = "aabccxb";
+        // String res = nonRepeatingLetter(w);
+        // System.out.println(res);
+
+        // interleave queue
+        Queue<Integer> q1 = new LinkedList<>();
+
+        for (int i = 1; i <= 10; i++) {
+            q1.add(i);
+        }
+
+        interleave(q1);
+        System.out.println(q1);
 
     }
 }
