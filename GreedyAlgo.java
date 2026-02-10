@@ -1,23 +1,73 @@
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class GreedyAlgo {
 
+    // for this approach to work input should be sorted
     public static int activitySelection(int arr1[], int arr2[]) {
 
         if (arr2.length == 0 && arr1.length == 0) {
             return 0;
         }
-
+        String activityArray[] = new String[arr1.length];
         int lastActivity = arr2[0];
         int activity = 1;
+        activityArray[0] = "A1";
+        int j = 1;
         for (int i = 1; i < arr1.length; i++) {
 
             if (arr1[i] >= lastActivity) {
                 lastActivity = arr2[i];
+                activityArray[j] = "A" + (i + 1);
                 activity++;
+                j++;
             }
 
         }
 
+        for (int i = 0; i < j; i++) {
+            System.out.println(activityArray[i] + " ");
+        }
+        return activity;
+
+    }
+
+    // when the output is not sorted
+    public static int activitySelection2(int arr1[], int arr2[]) {
+
+        if (arr2.length == 0 && arr1.length == 0) {
+            return 0;
+        }
+
+        // sorting
+        int arr[][] = new int[arr1.length][2];
+        for (int i = 0; i < arr1.length; i++) {
+            arr[i][0] = arr1[i];
+            arr[i][1] = arr2[i];
+        }
+        // lambda function
+        // this sorts the array based on 2nd parameter which is endtime
+        Arrays.sort(arr, Comparator.comparingInt(a -> a[1]));
+
+        String activityArray[] = new String[arr1.length];
+        int lastActivity = arr[0][1];
+        int activity = 1;
+        activityArray[0] = "A1";
+        int j = 1;
+        for (int i = 1; i < arr1.length; i++) {
+
+            if (arr[i][0] >= lastActivity) {
+                lastActivity = arr[i][1];
+                activityArray[j] = "A" + (i + 1);
+                activity++;
+                j++;
+            }
+
+        }
+
+        for (int i = 0; i < j; i++) {
+            System.out.println(activityArray[i] + " ");
+        }
         return activity;
 
     }
@@ -27,7 +77,7 @@ public class GreedyAlgo {
         // activity selection problem
         int start[] = { 10, 12, 30 };
         int end[] = { 20, 25, 40 };
-        int activity = activitySelection(start, end);
+        int activity = activitySelection2(start, end);
         System.out.println("Total activity: " + activity);
 
     }
