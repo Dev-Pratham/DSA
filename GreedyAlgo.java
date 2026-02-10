@@ -73,7 +73,7 @@ public class GreedyAlgo {
 
     }
 
-    // fractional knapsack problem
+    // fractional knapsack problem wrong approch
     public static int fractionalKnapsack(int value[], int weights[], int capacity) {
 
         int maxValue = 0;
@@ -152,6 +152,8 @@ public class GreedyAlgo {
                 capacity -= cweight;
             } else {
                 maxValue += capacity * cratio;
+                // knapsack stops after first fraction since now capacity becomes zero
+                break;
             }
 
         }
@@ -168,11 +170,11 @@ public class GreedyAlgo {
         // System.out.println("Total activity: " + activity);
 
         // fractional knapsack problem
-        int value[] = { 60, 100, 120 };
-        int weights[] = { 10, 20, 30 };
-        int capacity = 50;
+        int value[] = { 60, 100 };
+        int weights[] = { 10, 20 };
+        int capacity = 100;
 
-        int fracKnap = fractionalKnapsack(value, weights, capacity);
+        int fracKnap = fractionalKnapsack2(value, weights, capacity);
         System.out.println(fracKnap);
 
     }
