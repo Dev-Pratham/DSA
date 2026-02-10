@@ -1,3 +1,5 @@
+import java.security.DrbgParameters.Capability;
+import java.security.KeyStore.CallbackHandlerProtection;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -72,13 +74,64 @@ public class GreedyAlgo {
 
     }
 
+    // fractional knapsack problem
+    public static int fractionalKnapsack(int value[], int weights[], int capacity) {
+
+        int maxValue = 0;
+        // initialize 2d array for storing value weights and ratio
+        double arr[][] = new double[value.length][3];
+
+        for (int i = 0; i < value.length; i++) {
+            arr[i][0] = value[i];
+            arr[i][1] = weights[i];
+            // ratio
+            arr[i][2] = value[i] / weights[i];
+        }
+
+        // sorted in descending order
+        Arrays.sort(arr, Comparator.comparingDouble((double[] a) -> a[2]).reversed());
+
+        // remember we need all items in the bag is item cannot be fully contained
+        // its fractional part should be contained
+
+        int initialCapacity = 0;
+        int lasIndex = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+
+            if ((initialCapacity + arr[i][1] <= capacity)) {
+                initialCapacity += arr[i][1];
+                maxValue += arr[i][0];
+                lasIndex = i;
+
+            }
+
+        }
+
+        if (initialCapacity != capacity) {
+            lasIndex++;
+            int remainingSpace = capacity - initialCapacity;
+            maxValue += remainingSpace * arr[lasIndex][2];
+        }
+
+        return maxValue;
+    }
+
     public static void main(String args[]) {
 
         // activity selection problem
-        int start[] = { 10, 12, 30 };
-        int end[] = { 20, 25, 40 };
-        int activity = activitySelection2(start, end);
-        System.out.println("Total activity: " + activity);
+        // int start[] = { 10, 12, 30 };
+        // int end[] = { 20, 25, 40 };
+        // int activity = activitySelection2(start, end);
+        // System.out.println("Total activity: " + activity);
+
+        // fractional knapsack problem
+        int value[] = { 60, 100, 120 };
+        int weights[] = { 10, 20, 30 };
+        int capacity = 50;
+
+        int fracKnap = fractionalKnapsack(value, weights, capacity);
+        System.out.println(fracKnap);
 
     }
 }
