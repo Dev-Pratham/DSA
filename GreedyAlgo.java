@@ -1,5 +1,4 @@
-import java.security.DrbgParameters.Capability;
-import java.security.KeyStore.CallbackHandlerProtection;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -108,10 +107,53 @@ public class GreedyAlgo {
 
         }
 
-        if (initialCapacity != capacity) {
+        // this approch works but is incorrect because it says that
+        // first item which will not fit will always be lastIndex+1
+        // which is wrong and doesnot follow greedy approach all decide locally and
+        // immeditely
+
+        // some space still be remaining so filling that space with fractal element
+        if (initialCapacity != capacity && lasIndex < arr.length - 1) {
             lasIndex++;
             int remainingSpace = capacity - initialCapacity;
             maxValue += remainingSpace * arr[lasIndex][2];
+        }
+
+        return maxValue;
+    }
+
+    // fractional knapsack problem
+    public static int fractionalKnapsack2(int value[], int weights[], int capacity) {
+
+        int maxValue = 0;
+        // initialize 2d array for storing value weights and ratio
+        double arr[][] = new double[value.length][3];
+
+        for (int i = 0; i < value.length; i++) {
+            arr[i][0] = value[i];
+            arr[i][1] = weights[i];
+            // ratio
+            arr[i][2] = value[i] / weights[i];
+        }
+
+        // sorted in descending order
+        Arrays.sort(arr, Comparator.comparingDouble((double[] a) -> a[2]).reversed());
+
+        // remember we need all items in the bag is item cannot be fully contained
+        // its fractional part should be contained
+
+        for (int i = 0; i < arr.length; i++) {
+            double cvalue = arr[i][0];
+            double cweight = arr[i][1];
+            double cratio = arr[i][2];
+
+            if (cweight < capacity) {
+                maxValue += cvalue;
+                capacity -= cweight;
+            } else {
+                maxValue += capacity * cratio;
+            }
+
         }
 
         return maxValue;
