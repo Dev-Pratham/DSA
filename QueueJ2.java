@@ -87,5 +87,7 @@ public class QueueJ2 {
         q.add(2);
         q.add(3);
         q.printQueue();
+
+        System.out.println("0" + "1");
     }
 }

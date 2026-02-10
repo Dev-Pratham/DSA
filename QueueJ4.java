@@ -3,6 +3,7 @@ import java.util.Stack;
 
 import javax.naming.LinkLoopException;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -111,6 +112,41 @@ public class QueueJ4 {
 
     }
 
+    // implemented generate binary string using queue
+    static void generatePrintBinary(int n) {
+        Queue<String> q = new LinkedList<String>();
+        q.add("1");
+        while (n > 0) {
+            String s1 = q.peek();
+            System.out.println(s1);
+            q.add(s1 + "0");
+            q.add(s1 + "1");
+            q.remove();
+            n--;
+        }
+    }
+
+    // approach is simple just add minimum each time so that small number is
+    // repeated
+    // many times as compared to large number repetetion
+    // this solution is wrong
+    public static int minimumCostRope(int arr[]) {
+
+        Arrays.sort(arr);
+        int element1 = arr[0];
+        int element2 = arr[1];
+        int cost = element1 + element2;
+        int mincost = cost;
+
+        for (int i = 2; i < arr.length; i++) {
+            cost = cost + arr[i];
+            mincost += cost;
+        }
+
+        return mincost;
+
+    }
+
     public static void main(String args[]) {
         // there are 2 classes which are used to implement queue in java
         // -linkedlist
@@ -143,11 +179,20 @@ public class QueueJ4 {
 
         // deque double ended queue can be added and removed from both sides
 
-        Deque<Integer> dq = new LinkedList<>();
-        dq.addFirst(10);
-        dq.addFirst(20);
-        int first = dq.getFirst();
-        int last = dq.getLast();
+        // Deque<Integer> dq = new LinkedList<>();
+        // dq.addFirst(10);
+        // dq.addFirst(20);
+        // int first = dq.getFirst();
+        // int last = dq.getLast();
+
+        // generate binary string
+        // int n = 4;
+        // generatePrintBinary(n);
+
+        // find minimum cost rope
+        // int n = 4;
+        // int arr[] = { 4, 3, 2, 6 };
+        // System.out.println(minimumCostRope(arr));
 
     }
 }
