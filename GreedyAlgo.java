@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -161,6 +162,38 @@ public class GreedyAlgo {
         return maxValue;
     }
 
+    public static int actiSelectLongestChain(int pairs[][]) {
+
+        if (pairs.length == 0) {
+            System.out.println("pairs are empty");
+            return -1;
+        }
+
+        // array lits is used to store the pairs which can be used in future
+        ArrayList<int[]> arr = new ArrayList<>();
+        // sorting the pair array based on 2nd parameter
+        Arrays.sort(pairs, Comparator.comparingInt(o -> o[1]));
+        int lastEnd = pairs[0][1];
+        // add the link in arraylist
+        arr.add(pairs[0]);
+        int link = 1;
+
+        for (int i = 1; i < pairs.length; i++) {
+            int start = pairs[i][0];
+            int end = pairs[i][1]; // this end defines
+
+            if (lastEnd < start) {
+                lastEnd = end;
+                // add link in arraylist
+                arr.add(pairs[i]);
+                link++;
+            }
+        }
+
+        return link;
+
+    }
+
     public static void main(String args[]) {
 
         // activity selection problem
@@ -170,12 +203,17 @@ public class GreedyAlgo {
         // System.out.println("Total activity: " + activity);
 
         // fractional knapsack problem
-        int value[] = { 60, 100 };
-        int weights[] = { 10, 20 };
-        int capacity = 100;
+        // int value[] = { 60, 100, 120 };
+        // int weights[] = { 10, 20, 30 };
+        // int capacity = 50;
 
-        int fracKnap = fractionalKnapsack2(value, weights, capacity);
-        System.out.println(fracKnap);
+        // int fracKnap = fractionalKnapsack2(value, weights, capacity);
+        // System.out.println(fracKnap);
+
+        // variation of activity selection
+        int pairs[][] = { { 5, 24 }, { 39, 60 }, { 5, 28 }, { 27, 40 }, { 50, 90 } };
+        int lonchain = actiSelectLongestChain(pairs);
+        System.out.println(lonchain);
 
     }
 }
