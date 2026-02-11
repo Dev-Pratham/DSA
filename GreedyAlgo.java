@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Stack;
 
 public class GreedyAlgo {
 
@@ -194,6 +195,106 @@ public class GreedyAlgo {
 
     }
 
+    public static boolean denominationExists(int value, int arr[]) {
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    // bruteforce approach
+    public static int indianCoins(int arr[], int n) {
+
+        ArrayList<Integer> a = new ArrayList<>();
+        ArrayList<Integer> ans = new ArrayList<>();
+        int denominations = 0;
+        int unitPlace = 1;
+        while (n > 0) {
+            int m = n % 10;
+            n = n / 10;
+            a.add(m * unitPlace);
+            unitPlace = unitPlace * 10;
+        }
+
+        for (int i = 0; i < a.size(); i++) {
+
+            // check whether denomination exists in arr
+            if (a.get(i) == 0) {
+                continue;
+            }
+
+            if (denominationExists(a.get(i), arr)) {
+                denominations++;
+                ans.add(a.get(i));
+            } else {
+                int j = 0;
+                while (j < arr.length && arr[j] < a.get(i)) {
+                    j++;
+                }
+                j--;
+
+                if (j < 0) {
+                    System.out.println("No smaller element found");
+                    return -1;
+                }
+
+                // now j contains the index of possibly element which is smaller than 90
+                int element = arr[j];
+                int totalAmt = a.get(i);
+
+                while (totalAmt > 0) {
+
+                    boolean reduced = false;
+
+                    for (int k = j; k >= 0; k--) {
+
+                        if (arr[k] <= totalAmt) {
+                            if (totalAmt % arr[k] == 0) {
+                                int remainders = totalAmt / arr[k];
+                                denominations += remainders;
+                                totalAmt = totalAmt - arr[k] * remainders;
+                                while (remainders > 0) {
+                                    ans.add(arr[k]);
+                                    remainders--;
+                                }
+                            } else {
+                                denominations += 1;
+                                ans.add(arr[k]);
+                                totalAmt = totalAmt - arr[k];
+                            }
+                            reduced = true;
+                        }
+                    }
+
+                    if (!reduced) {
+                        System.out.println("No reduction possible");
+                        return -1;
+                    }
+                }
+
+                if (totalAmt != 0) {
+                    System.out.println("No denomination exists");
+                    return -1;
+                }
+
+            }
+
+        }
+
+        for (int i = 0; i < ans.size(); i++) {
+            System.out.print(ans.get(i) + " ");
+        }
+
+        System.out.println();
+
+        return denominations;
+    }
+
     public static void main(String args[]) {
 
         // activity selection problem
@@ -211,9 +312,15 @@ public class GreedyAlgo {
         // System.out.println(fracKnap);
 
         // variation of activity selection
-        int pairs[][] = { { 5, 24 }, { 39, 60 }, { 5, 28 }, { 27, 40 }, { 50, 90 } };
-        int lonchain = actiSelectLongestChain(pairs);
-        System.out.println(lonchain);
+        // int pairs[][] = { { 5, 24 }, { 39, 60 }, { 5, 28 }, { 27, 40 }, { 50, 90 } };
+        // int lonchain = actiSelectLongestChain(pairs);
+        // System.out.println(lonchain);
+
+        // indian coins
+        int denominations[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
+        int n = 590;
+        int minDenominations = indianCoins(denominations, n);
+        System.out.println(minDenominations);
 
     }
 }
