@@ -329,6 +329,46 @@ public class GreedyAlgo {
 
     }
 
+    // job sequencing with maximum profit
+    public static int jobSequencing(int jobs[][]) {
+
+        Arrays.sort(jobs, Comparator.comparingInt(o -> o[0]));
+        ArrayList<Integer> ans = new ArrayList<>();
+        int profit = 0;
+        int maxProfit = 0;
+        int totalprofit = 0;
+        int maxIndex = 0;
+        for (int i = 0; i < jobs.length; i++) {
+
+            if ((i + 1) < jobs.length && jobs[i][0] == jobs[i + 1][0]) {
+                maxProfit = Integer.MIN_VALUE;
+                while ((i + 1) < jobs.length && jobs[i][0] == jobs[i + 1][0]) {
+                    if (maxProfit < jobs[i][1]) {
+                        maxProfit = jobs[i][1];
+                        maxIndex = jobs[i][0];
+
+                    }
+                    i++;
+                }
+
+                totalprofit += maxProfit;
+                ans.add(maxIndex + 1);
+
+            } else {
+                ans.add(i + 1);
+                profit = jobs[i][1];
+                totalprofit += profit;
+
+            }
+
+        }
+
+        for (int i = 0; i < ans.size(); i++) {
+            System.out.println(ans.get(i));
+        }
+        return totalprofit;
+    }
+
     public static void main(String args[]) {
 
         // activity selection problem
@@ -351,10 +391,15 @@ public class GreedyAlgo {
         // System.out.println(lonchain);
 
         // indian coins
-        int denominations[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
-        int n = 590;
-        int minDenominations = indianCoins2(denominations, n);
-        System.out.println(minDenominations);
+        // int denominations[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
+        // int n = 590;
+        // int minDenominations = indianCoins2(denominations, n);
+        // System.out.println(minDenominations);
+
+        // job sequencing problem
+        int jobs[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+        int maxProfit = jobSequencing(jobs);
+        System.out.println(maxProfit);
 
     }
 }
