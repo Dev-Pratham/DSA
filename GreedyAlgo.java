@@ -1,8 +1,8 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.Stack;
 
 public class GreedyAlgo {
 
@@ -207,7 +207,7 @@ public class GreedyAlgo {
 
     }
 
-    // bruteforce approach
+    // bruteforce approach my approach
     public static int indianCoins(int arr[], int n) {
 
         ArrayList<Integer> a = new ArrayList<>();
@@ -295,6 +295,40 @@ public class GreedyAlgo {
         return denominations;
     }
 
+    public static int indianCoins2(int coins[], int amt) {
+
+        int countDeno = 0;
+        Arrays.sort(coins);
+
+        // reversing an array standard approach
+        int start = 0;
+        int end = coins.length - 1;
+
+        while (start < end) {
+            int temp = coins[start];
+            coins[start] = coins[end];
+            coins[end] = temp;
+            start++;
+            end--;
+        }
+
+        //
+        for (int i = 0; i < coins.length; i++) {
+
+            if (coins[i] <= amt) {
+                // suppose the amount left is 40 and we are at coin i which is 20
+                while (coins[i] <= amt) {
+
+                    countDeno++;
+                    amt = amt - coins[i];
+                }
+            }
+        }
+
+        return countDeno;
+
+    }
+
     public static void main(String args[]) {
 
         // activity selection problem
@@ -319,7 +353,7 @@ public class GreedyAlgo {
         // indian coins
         int denominations[] = { 1, 2, 5, 10, 20, 50, 100, 500, 2000 };
         int n = 590;
-        int minDenominations = indianCoins(denominations, n);
+        int minDenominations = indianCoins2(denominations, n);
         System.out.println(minDenominations);
 
     }
