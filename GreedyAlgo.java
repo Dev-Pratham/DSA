@@ -329,7 +329,8 @@ public class GreedyAlgo {
 
     }
 
-    // job sequencing with maximum profit
+    // job sequencing with maximum profit incorrect but okay i tried checkout
+    // greedyalgo2
     public static int jobSequencing(int jobs[][]) {
 
         Arrays.sort(jobs, Comparator.comparingInt(o -> o[0]));
@@ -397,7 +398,13 @@ public class GreedyAlgo {
         // System.out.println(minDenominations);
 
         // job sequencing problem
-        int jobs[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+        int[][] jobs = {
+                { 4, 20 },
+                { 1, 10 },
+                { 1, 40 },
+                { 1, 30 }
+        };
+
         int maxProfit = jobSequencing(jobs);
         System.out.println(maxProfit);
 
