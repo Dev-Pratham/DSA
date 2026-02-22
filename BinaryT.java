@@ -1,3 +1,6 @@
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class BinaryT {
 
     public static class Node {
@@ -55,23 +58,46 @@ public class BinaryT {
 
         }
 
-    }
+        // This is like bfs
+        public static void levelOrder(Node root) {
 
-    public static void postOrder(Node root) {
-        if (root == null) {
-            return;
+            Queue<Node> q = new LinkedList<Node>();
+            q.add(root);
+
+            while (!q.isEmpty()) {
+                Node rem = q.remove();
+                System.out.println(rem.data);
+                if (rem.left != null) {
+                    q.add(rem.left);
+                }
+                if (rem.right != null) {
+                    q.add(rem.right);
+                }
+            }
+
         }
-        postOrder(root.left);
-        postOrder(root.right);
-        System.out.println(root.data);
+
+        public static void postOrder(Node root) {
+            if (root == null) {
+                return;
+            }
+            postOrder(root.left);
+            postOrder(root.right);
+            System.out.println(root.data);
+        }
+
     }
 
     public static void main(String args[]) {
 
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         Node root = BinaryTree.buildTree(node);
-        System.out.println(root.data);
-        System.out.println(root.left.data);
-        System.out.println(root.right.data);
+        // System.out.println(root.data);
+        // System.out.println(root.left.data);
+        // System.out.println(root.right.data);
+
+        // levelorder
+        // BinaryTree.levelOrder(root);
+
     }
 }
