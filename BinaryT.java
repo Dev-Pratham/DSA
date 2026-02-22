@@ -16,6 +16,7 @@ public class BinaryT {
         // this index tracks the index of the given arrat of node
         static int index = -1;
 
+        // this is preorder
         public static Node buildTree(int node[]) {
             index++;
 
@@ -30,6 +31,39 @@ public class BinaryT {
             return newNode;
 
         }
+
+        public static void printPreOrder(Node root) {
+
+            if (root == null) {
+                return;
+            }
+
+            System.out.println(root.data);
+            printPreOrder(root.left);
+            printPreOrder(root.right);
+        }
+
+        public static void printInOrder(Node root) {
+
+            if (root == null) {
+                return;
+            }
+
+            printInOrder(root.left);
+            System.out.println(root.data);
+            printInOrder(root.right);
+
+        }
+
+    }
+
+    public static void postOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.println(root.data);
     }
 
     public static void main(String args[]) {
