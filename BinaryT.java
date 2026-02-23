@@ -63,16 +63,29 @@ public class BinaryT {
 
             Queue<Node> q = new LinkedList<Node>();
             q.add(root);
+            q.add(null);
 
             while (!q.isEmpty()) {
                 Node rem = q.remove();
-                System.out.println(rem.data);
-                if (rem.left != null) {
-                    q.add(rem.left);
+                if (rem != null) {
+                    System.out.print(rem.data + " ");
+                    if (rem.left != null) {
+                        q.add(rem.left);
+                    }
+                    if (rem.right != null) {
+                        q.add(rem.right);
+                    }
+
+                } else {
+                    // if next node is also null
+                    Node next = q.peek();
+                    if (next == rem) {
+                        break;
+                    }
+                    System.out.println();
+                    q.add(null);
                 }
-                if (rem.right != null) {
-                    q.add(rem.right);
-                }
+
             }
 
         }
@@ -97,7 +110,7 @@ public class BinaryT {
         // System.out.println(root.right.data);
 
         // levelorder
-        // BinaryTree.levelOrder(root);
+        BinaryTree.levelOrder(root);
 
     }
 }
