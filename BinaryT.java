@@ -58,7 +58,7 @@ public class BinaryT {
 
         }
 
-        // This is like bfs
+        // This is like bfs this was implemented using queue data structure
         public static void levelOrder(Node root) {
 
             Queue<Node> q = new LinkedList<Node>();
@@ -101,6 +101,23 @@ public class BinaryT {
 
     }
 
+    // main objective was to get the height of binary tree to 3 node height re
+    public static int heightBinaryTree(Node root) {
+
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = heightBinaryTree(root.left);
+        int rightHeight = heightBinaryTree(root.right);
+
+        if (leftHeight > rightHeight) {
+            return leftHeight + 1;
+        } else {
+            return rightHeight + 1;
+        }
+
+    }
+
     public static void main(String args[]) {
 
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -110,7 +127,11 @@ public class BinaryT {
         // System.out.println(root.right.data);
 
         // levelorder
-        BinaryTree.levelOrder(root);
+        // BinaryTree.levelOrder(root);
+
+        // height of binary tree(node height)
+        int res = heightBinaryTree(root);
+        System.out.println(res);
 
     }
 }
