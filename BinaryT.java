@@ -131,6 +131,17 @@ public class BinaryT {
 
     }
 
+    public static int sumNodes(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftSum = sumNodes(root.left);
+        int rightSum = sumNodes(root.right);
+
+        return leftSum + rightSum + root.data;
+    }
+
     public static void main(String args[]) {
 
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, 5 };
