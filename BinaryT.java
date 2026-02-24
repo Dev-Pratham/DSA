@@ -23,7 +23,7 @@ public class BinaryT {
         public static Node buildTree(int node[]) {
             index++;
 
-            if (node[index] == -1) {
+            if (index >= node.length || node[index] == -1) {
                 return null;
             }
 
@@ -118,9 +118,22 @@ public class BinaryT {
 
     }
 
+    public static int countNodes(Node root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        int leftChild = countNodes(root.left);
+        int rightChild = countNodes(root.right);
+
+        return leftChild + rightChild + 1;
+
+    }
+
     public static void main(String args[]) {
 
-        int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
+        int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, 5 };
         Node root = BinaryTree.buildTree(node);
         // System.out.println(root.data);
         // System.out.println(root.left.data);
@@ -130,8 +143,11 @@ public class BinaryT {
         // BinaryTree.levelOrder(root);
 
         // height of binary tree(node height)
-        int res = heightBinaryTree(root);
-        System.out.println(res);
+        // int res = heightBinaryTree(root);
+        // System.out.println(res);
 
+        // count nodes
+        int res2 = countNodes(root);
+        System.out.println(res2);
     }
 }
