@@ -1,4 +1,5 @@
 import java.util.Queue;
+import java.util.Stack;
 import java.util.LinkedList;
 
 public class BinaryT {
@@ -142,6 +143,29 @@ public class BinaryT {
         return leftSum + rightSum + root.data;
     }
 
+    // this is the top view of binary tree
+    public static void topView(Node root, Node root2) {
+
+        Stack<Node> s = new Stack<>();
+
+        while (root2 != null) {
+            if (root2.left != null) {
+                s.push(root2.left);
+            }
+            root2 = root2.left;
+        }
+
+        while (!s.isEmpty()) {
+            System.out.print(s.pop().data);
+        }
+
+        while (root != null) {
+            System.out.print(root.data);
+            root = root.right;
+        }
+
+    }
+
     public static void main(String args[]) {
 
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, 5 };
@@ -158,7 +182,9 @@ public class BinaryT {
         // System.out.println(res);
 
         // count nodes
-        int res2 = countNodes(root);
-        System.out.println(res2);
+        // int res2 = countNodes(root);
+        // System.out.println(res2);
+
+        topView(root, root);
     }
 }
