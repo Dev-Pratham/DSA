@@ -244,10 +244,55 @@ public class BinaryT {
 
     }
 
+    public static boolean checkStructure(Node root, Node sub) {
+
+        // check structure checks for non identical cases
+        if (root == null && sub == null) {
+            return true;
+        }
+
+        if (root == null || sub == null) {
+            return false;
+        }
+
+        if (root.data != sub.data) {
+            return false;
+        }
+
+        boolean left = checkStructure(root.left, sub.left);
+        boolean right = checkStructure(root.right, sub.right);
+
+        return left && right;
+
+    }
+
+    public static boolean isSubtree(Node root, Node sub) {
+
+        // preorder Traversal
+        if (root == null) {
+            return false;
+        }
+
+        if (root.data == sub.data) {
+            if (checkStructure(root, sub)) {
+                return true;
+            }
+        }
+
+        // for iteratively checking left and right child
+        boolean left = isSubtree(root.left, sub);
+        boolean right = isSubtree(root.right, sub);
+        return left || right;
+
+    }
+
     public static void main(String args[]) {
 
-        int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, 5 };
+        int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
+        int node2[] = { 2, 4, -1, -1, 5, -1, -1 };
         Node root = BinaryTree.buildTree(node);
+        BinaryTree.index = -1;
+        Node subRoot = BinaryTree.buildTree(node2);
         // System.out.println(root.data);
         // System.out.println(root.left.data);
         // System.out.println(root.right.data);
@@ -264,5 +309,8 @@ public class BinaryT {
         // System.out.println(res2);
 
         // topView2(root);
+
+        // isSubtree
+        System.out.println(isSubtree(root, subRoot));
     }
 }
