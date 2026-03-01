@@ -354,6 +354,31 @@ public class BinaryT {
 
     }
 
+    public static int kthAncestor(Node root, int n, int k) {
+
+        if (root == null) {
+            return -1;
+        }
+
+        if (root.data == n) {
+            return 0;
+        }
+
+        int left = kthAncestor(root.left, n, k);
+        int right = kthAncestor(root.right, n, k);
+
+        if (left == -1 && right == -1) {
+            return -1;
+        }
+
+        int max = Math.max(left, right);
+        if (max + 1 == k) {
+            System.out.println(root.data);
+        }
+
+        return max + 1;
+    }
+
     public static void main(String args[]) {
 
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
