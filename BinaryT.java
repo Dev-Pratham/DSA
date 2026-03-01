@@ -286,6 +286,74 @@ public class BinaryT {
 
     }
 
+    public static int diameter(Node root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        // to solve this problem we need to use height of tree
+        int leftheight = heightBinaryTree(root.left);
+        int rightHeight = heightBinaryTree(root.right);
+        int d = leftheight + rightHeight + 1;
+
+        // left subtree height calculation
+        int leftdia = heightBinaryTree(root.left.left) + heightBinaryTree(root.right.right) + 1;
+        int rightdia = heightBinaryTree(root.right.left) + heightBinaryTree(root.right.right) + 1;
+
+        if (d > rightdia && d > rightdia) {
+            return d;
+        } else if (rightdia > d && rightdia > d) {
+            return rightdia;
+        }
+
+        return leftdia;
+
+    }
+
+    public static int diameter2(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftdia = diameter2(root.left);
+        int leftheight = heightBinaryTree(root.left);
+        int rightdia = diameter2(root.right);
+        int rightheight = heightBinaryTree(root.right);
+
+        int self = leftheight + rightheight + 1;
+
+        return Math.max(self, Math.max(rightdia, leftdia));
+    }
+
+    static class DiaPair {
+        int dia;
+        int height;
+
+        DiaPair(int dia, int ht) {
+            this.dia = dia;
+            this.height = ht;
+        }
+    }
+
+    // time complexity 0(n) because we are calculating diameter and height in one
+    // function so we are not doing repeated work of calculating height again and
+    // again for each node
+    public static DiaPair diameter3(Node root) {
+        if (root == null) {
+            return new DiaPair(0, 0);
+        }
+
+        DiaPair leftinfo = diameter3(root.left);
+        DiaPair rightinfo = diameter3(root.right);
+
+        int dia = Math.max(leftinfo.height + rightinfo.height + 1, Math.max(leftinfo.dia, rightinfo.dia));
+        int height = Math.max(leftinfo.height, rightinfo.height) + 1;
+
+        return new DiaPair(dia, height);
+
+    }
+
     public static void main(String args[]) {
 
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -311,6 +379,12 @@ public class BinaryT {
         // topView2(root);
 
         // isSubtree
-        System.out.println(isSubtree(root, subRoot));
+        // System.out.println(isSubtree(root, subRoot));
+
+        // diameter 0(n^2) because we are calculating height for each node and height is
+        // 0(n) so n*n = n^2
+        System.out.println(diameter2(root));
+        // 0(N)
+        System.out.println(diameter3(root).dia);
     }
 }
